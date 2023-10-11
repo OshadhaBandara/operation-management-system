@@ -19,7 +19,7 @@
         <div class="row justify-content-center align-items-center">
           <div class="col-lg-9 text-center">
             <h1 class="heading" data-aos="fade-up">
-              Easiest way to find your dream home
+              Easiest way to get your services Form Devotional Secretariat with efficiency
             </h1>
             <form
               action="#"
@@ -30,7 +30,7 @@
               <input
                 type="text"
                 class="form-control px-4"
-                placeholder="Your ZIP code or City. e.g. New York"
+                placeholder="Enter The service You Need. "
               />
               <button type="submit" class="btn btn-primary">Search</button>
             </form>

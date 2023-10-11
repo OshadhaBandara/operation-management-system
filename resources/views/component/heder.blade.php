@@ -16,7 +16,7 @@
     <div class="container">
       <div class="menu-bg-wrap">
         <div class="site-navigation">
-          <a href="index.html" class="logo m-0 float-start">
+          <a href="/" class="logo m-0 float-start">
             
             <img src="{{asset('assets/images/Dice_Bridge_logo.png')}}" alt="Image" class="img-fluid" />
 
@@ -26,25 +26,38 @@
           <ul
             class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end"
           >
-            <li class="active"><a href="index.html">Home</a></li>
+            <li class="active"><a href="/">Home</a></li>
             <li class="has-children">
-              <a href="properties.html">Services</a>
+              <a href="service">Services</a>
               <ul class="dropdown">
-                <li><a href="#">Buy Property</a></li>
-                <li><a href="#">Sell Property</a></li>
-                <li class="has-children">
-                  <a href="#">Dropdown</a>
-                  <ul class="dropdown">
-                    <li><a href="#">Sub Menu One</a></li>
-                    <li><a href="#">Sub Menu Two</a></li>
-                    <li><a href="#">Sub Menu Three</a></li>
-                  </ul>
+                <li><a href="#">Certificates Requast</a></li>
+                <li>
+                  <a href="#">NIC</a>
                 </li>
+                <li>
+                  <a href="#">Passport</a>
+                </li>
+                <li>
+                  <a href="#">Vehicle Licence</a>
+                </li>
+                <li>
+                  <a href="#">Appointment</a>
+                </li>
+                <li><a href="#">Payments</a></li>
               </ul>
             </li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="Download">Downloads</a></li>
+            <li><a href="about">About</a></li>
+            <li><a href="contact-us">Contact Us</a></li>
+            <li class="has-children">
+              <a href="#">Account</a>
+              <ul class="dropdown">
+                <li><a href="#">Sing Up</a></li>
+                <li><a href="#">Sing In</a></li>
+                <li><a href="#">Profile</a></li>
+               
+              </ul>
+            </li>
           </ul>
 
           <a
@@ -59,3 +72,4 @@
       </div>
     </div>
   </nav>
+  

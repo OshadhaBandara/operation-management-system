@@ -4,12 +4,12 @@
         <div class="col-lg-4">
           <div class="widget">
             <h3>Contact</h3>
-            <address>43 Raymouth Rd. Baltemoer, London 3910</address>
+            <address>Divisional Secretariat Gampola</address>
             <ul class="list-unstyled links">
-              <li><a href="tel://11234567890">+1(123)-456-7890</a></li>
-              <li><a href="tel://11234567890">+1(123)-456-7890</a></li>
+              <li><a href="tel://11234567890">+94 812 352 236</a></li>
+              <li><a href="tel://11234567890">	+94 711 626 926</a></li>
               <li>
-                <a href="mailto:info@mydomain.com">info@mydomain.com</a>
+                <a href="mailto:info@mydomain.com">info@udapalatha.ds.gov.lk</a>
               </li>
             </ul>
           </div>
@@ -89,14 +89,9 @@
             <script>
               document.write(new Date().getFullYear());
             </script>
-            . All Rights Reserved. &mdash; Designed with love by
-            <a href="https://untree.co">Untree.co</a>
-            <!-- License information: https://untree.co/license/ -->
+            . All Rights Reserved.
           </p>
-          <div>
-            Distributed by
-            <a href="https://themewagon.com/" target="_blank">themewagon</a>
-          </div>
+          
         </div>
       </div>
     </div>
