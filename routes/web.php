@@ -115,3 +115,13 @@ Route::get('user-manager',function(){
 
     return view('Admin/user-manager');
 });
+
+Route::get('user-access',function(){
+
+    return view('Admin/user-access');
+});
+
+Route::get('add-user',function(){
+
+    return view('Admin/add-user');
+});

@@ -45,7 +45,7 @@
                                   <div  class="col-md-6 col-sm-6 col-xs-6">
                                     <p class="text-muted font-13 m-b-30" style="padding-top: 15px">
                                       You can View Change, Edit and Delete Back Office Users
-                                  </p>
+                                    </p>
                                   </div>
                                   <div class="col-md-6 col-sm-6 col-xs-6 text-right">
 
