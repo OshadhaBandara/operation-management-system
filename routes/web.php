@@ -125,3 +125,21 @@ Route::get('add-user',function(){
 
     return view('Admin/add-user');
 });
+
+Route::get('user',function(){
+
+    return view('Admin/user');
+});
+
+
+Route::get('view-user',function(){
+
+    return view('Admin/view-user');
+});
+
+
+
+Route::get('edit-user',function(){
+
+    return view('Admin/edit-user');
+});

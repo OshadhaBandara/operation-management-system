@@ -59,18 +59,9 @@
                     <div class="x_title">
                       <div class="row">
                         <div class="col-md-6 col-sm-6">
-                          <h2>Create User</h2>
+                          <h2>Edit User</h2>
                         </div>
-                        <!-- shearch -->
-                        <div class="col-md-6 col-sm-6 text-right" style="display: none">
-                          <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search for...">
-                            <span class="input-group-btn">
-                              <button class="btn btn-secondary" type="button">Go!</button>
-                            </span>
-                          </div>
-                        </div>
-                        <!-- shearch -->
+
                       </div>
 
                       
@@ -84,8 +75,22 @@
                                   <div class="x_panel">
 
                                     <div class="x_content">
-                                      <br />
-                                     
+                                      <div class="row" style="padding: 15px">
+                                          <div class="col-md-6 col-sm-6 mb-2">
+                                              <!-- Container for user image and icon -->
+                                              <div class="border border-dark" style="position: relative; max-width: 250px; cursor: pointer; " id="user-image" data-toggle="modal" data-target="#updateImageModal">
+                                                  <!-- User Image -->
+                                                  <img src="{{asset('assets/images/person_3-min.jpg')}}" alt="user-image" style="width: 100%; ">
+                                                  <!-- Plus-square icon inside the container -->
+                                                  <i class="fa fa-plus-square" style="position: absolute; bottom: 0; right: 0; font-size: 24px; color:#2a3f54; background-color: rgb(255, 255, 255)"></i>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-6 col-sm-6 mb-2">
+                                          </div>
+                                      </div>
+                                  </div>
+                                  
+                                  
 
                                        
                                           <div class="col-md-6 col-sm-6  form-group has-feedback">
@@ -158,30 +163,9 @@
 
 
 
-                      <div class="col-md-12 col-sm-12" style="padding-top: 30px">
-                        <div class="x_panel">
-
-                          <div class="x_content">
-                            <br />        
-
-                              <div class="row">
-                                <h2>Access Management</h2>
-                              </div>
-                              <div class="row">
-
-
-
-                              </div>
-
-
-
-                          </div>
-
-                        </div>
-                  </div>
                 </div>
 
-                <div class="col-md-9 col-sm-9  offset-md-3">
+                <div class="col-md-9 col-sm-9  offset-md-5">
                                      
                   <button type="button" class="btn btn-primary">Back</button>
                  
@@ -200,6 +184,31 @@
         </div>
       </div>
     </div>
+
+
+
+            <!-- Update Image Modal -->
+        <div class="modal fade" id="updateImageModal" tabindex="-1" role="dialog" aria-labelledby="updateImageModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="updateImageModalLabel">Update User Image</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                      <!-- Image upload form or input field here -->
+                      <!-- You can use an <input type="file"> for image upload -->
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary">Save Changes</button>
+                  </div>
+              </div>
+          </div>
+        </div>
+
 
     @include('component/admin-footer')
 
