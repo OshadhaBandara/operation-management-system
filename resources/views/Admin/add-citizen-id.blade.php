@@ -59,15 +59,11 @@
                     <div class="x_title">
                       <div class="row">
                         <div class="col-md-6 col-sm-6">
-                          <h2>Create User</h2>
+                          <h2>Add citizen NIC</h2>
                         </div>
-                        
                       </div>
 
-
-
-
-
+                      
                       <div class="x_content">
                         <div class="row">
                             <div class="col-sm-12">
@@ -78,76 +74,29 @@
                                   <div class="x_panel">
 
                                     <div class="x_content">
-                                      <div class="row" style="padding: 15px">
-                                          <div class="col-md-6 col-sm-6 mb-2">
-                                              <!-- Container for user image and icon -->
-                                              <div class="border border-dark" style="position: relative; max-width: 250px; cursor: pointer; " id="user-image" data-toggle="modal" data-target="#updateImageModal">
-                                                  <!-- User Image -->
-                                                  <img src="{{asset('assets/images/person_3-min.jpg')}}" alt="user-image" style="width: 100%; ">
-                                                  <!-- Plus-square icon inside the container -->
-                                                  <i class="fa fa-plus-square" style="position: absolute; bottom: 0; right: 0; font-size: 24px; color:#2a3f54; background-color: rgb(255, 255, 255)"></i>
-                                              </div>
-                                          </div>
-                                          <div class="col-md-6 col-sm-6 mb-2">
-                                          </div>
-                                      </div>
-                                  </div>
-                                  
-                                  
+                                      <br />
+                                     
 
                                        
-                                          <div class="col-md-6 col-sm-6  form-group has-feedback">
-                                            <input type="text" class="form-control has-feedback-left" id="first-name" placeholder="ID" disabled>
-                                            <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
-                                          </div>
+                        
                                           
                     
                                         <div class="x_content">
                                           <div class="col-md-6 col-sm-6  form-group has-feedback">
-                                            <input type="text" class="form-control has-feedback-left" id="first-name" placeholder="First Name">
-                                            <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                                          </div>
-                      
-                                          <div class="col-md-6 col-sm-6  form-group has-feedback">
-                                            <input type="email" class="form-control has-feedback-left" id="last-name" placeholder="Last Name">
-                                            <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                                          </div>
-                      
-                                          <div class="col-md-6 col-sm-6  form-group has-feedback">
                                             <input type="email" class="form-control has-feedback-left" id="inputSuccess4" placeholder="NIC">
+                                            <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                          </div>
+                                         
+                                          <div class="col-md-6 col-sm-6  form-group has-feedback">
+                                            <input type="email" class="form-control has-feedback-left" id="inputSuccess4" placeholder="District"> 
+                                            <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                          </div>
+                      
+                                          <div class="col-md-6 col-sm-6  form-group has-feedback">
+                                            <input type="email" class="form-control has-feedback-left" id="inputSuccess4" placeholder="Grama Niladari Divitions"> 
                                             <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
                                           </div>
                       
-                                          <div class="col-md-6 col-sm-6  form-group has-feedback">
-                                            <input type="email" class="form-control has-feedback-left" id="inputSuccess4" placeholder="Email">
-                                            <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
-                                          </div>
-
-                                          <div class="col-md-6 col-sm-6  form-group has-feedback">
-                                            <input type="email" class="form-control has-feedback-left" id="inputSuccess4" placeholder="Phone">
-                                            <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
-                                          </div>
-
-                                          
-                                          <div class="col-md-6 col-sm-6  form-group has-feedback">
-                                            <input type="email" class="form-control has-feedback-left" id="inputSuccess4" placeholder="Job Roll">
-                                            <span class="fa fa-suitcase form-control-feedback left" aria-hidden="true"></span>
-                                          </div>
-                      
-                                          <div class="col-md-6 col-sm-6  form-group has-feedback">
-                                            <input type="email" class="form-control has-feedback-left" id="inputSuccess4" placeholder="Address">
-                                            <span class="fa fa-home form-control-feedback left" aria-hidden="true"></span>
-                                          </div>
-
-                                          <div class="col-md-6 col-sm-6  form-group has-feedback">
-                                            <input type="email" class="form-control has-feedback-left" id="inputSuccess4" placeholder="Duty District">
-                                            <span class="fa fa-university form-control-feedback left" aria-hidden="true"></span>
-                                          </div>
-
-                                          <div class="col-md-6 col-sm-6  form-group has-feedback">
-                                            <input type="email" class="form-control has-feedback-left" id="inputSuccess4" placeholder="Duty Divitions">
-                                            <span class="fa fa-sort form-control-feedback left" aria-hidden="true"></span>
-                                          </div>
 
 
                                        </div>
@@ -162,37 +111,12 @@
 
                             </div>
                           </div>
-
-
-
-
-                      <div class="col-md-12 col-sm-12" style="padding-top: 30px">
-                        <div class="x_panel">
-
-                          <div class="x_content">
-                            <br />        
-
-                              <div class="row">
-                                <h2>Access Management</h2>
-                              </div>
-                              <div class="row">
-
-
-
-                              </div>
-
-
-
-                          </div>
-
-                        </div>
-                  </div>
-
+                      </div>
 
 
                 </div>
 
-                <div class="col-md-9 col-sm-9  offset-md-3">
+                <div class="col-md-9 col-sm-9  offset-md-5">
                                      
                   <button type="button" class="btn btn-primary">Back</button>
                  
@@ -211,32 +135,6 @@
         </div>
       </div>
     </div>
-
-
-
-             <!-- Update Image Modal -->
-             <div class="modal fade" id="updateImageModal" tabindex="-1" role="dialog" aria-labelledby="updateImageModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                      <div class="modal-header">
-                          <h5 class="modal-title" id="updateImageModalLabel">Update User Image</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                          </button>
-                      </div>
-                      <div class="modal-body">
-                          <!-- Image upload form or input field here -->
-                          <!-- You can use an <input type="file"> for image upload -->
-                      </div>
-                      <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <button type="button" class="btn btn-primary">Save Changes</button>
-                      </div>
-                  </div>
-              </div>
-            </div>
-    
-    
 
     @include('component/admin-footer')
 

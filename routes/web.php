@@ -143,3 +143,8 @@ Route::get('edit-user',function(){
 
     return view('Admin/edit-user');
 });
+
+Route::get('add-citizen-id',function(){
+
+    return view('Admin/add-citizen-id');
+});
