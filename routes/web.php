@@ -126,10 +126,6 @@ Route::get('add-user',function(){
     return view('Admin/add-user');
 });
 
-Route::get('user',function(){
-
-    return view('Admin/user');
-});
 
 
 Route::get('view-user',function(){
@@ -147,4 +143,61 @@ Route::get('edit-user',function(){
 Route::get('add-citizen-id',function(){
 
     return view('Admin/add-citizen-id');
+});
+
+
+Route::get('citizen-manager',function(){
+
+    return view('Admin/citizen-manager');
+});
+
+
+Route::get('view-citizen',function(){
+
+    return view('Admin/view-citizen');
+});
+
+
+
+Route::get('edit-citizen',function(){
+
+    return view('Admin/edit-citizen');
+});
+
+
+Route::get('citizen-file-manage',function(){
+
+    return view('Admin/citizen-file-manage');
+});
+
+
+Route::get('citizen-appointment',function(){
+
+    return view('Admin/citizen-appointment');
+});
+
+
+
+Route::get('citizen-appointment-view',function(){
+
+    return view('Admin/citizen-appointment-view');
+});
+
+
+Route::get('appointment-user',function(){
+
+    return view('Admin/appointment');
+});
+
+
+
+Route::get('appointment-complete',function(){
+
+    return view('Admin/appointment-complete');
+});
+
+
+Route::get('appointment-reports',function(){
+
+    return view('Admin/Reports/appointment-reports');
 });
