@@ -124,18 +124,8 @@
                                         </div>
 
 
-
-
-
-
-                                      
-
-
-
                                           <!-- Data Table-->
-
-
-                                                                      
+                            
                                           <div class="col-md-12 col-sm-12 ">
                                             <div class="x_panel">
 
@@ -181,8 +171,6 @@
                                               </div>
                                             </div>
                                           </div>
-
-
 
                                           <!-- Data Table-->
 
