@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\CitizenController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,11 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'welcome');
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::get('news_1',function(){
 
-    return view();
+    return view('News/news1');
 });
 
 Route::get('news_2',function(){
@@ -55,10 +60,12 @@ Route::get('Download',function(){
     return view('download');
 });
 
-Route::get('profile-dashboard',function(){
+Route::get('profile-dashboard', function () {
+    $citizen = session('citizen'); // Retrieve the citizen data from the session
 
-    return view('Profile/dashboard');
+    return view('Profile/dashboard', ['citizen' => $citizen]);
 });
+
 
 Route::get('admin-dashboard',function(){
 
@@ -70,10 +77,6 @@ Route::get('admin-login',function(){
     return view('Auth/admin-login');
 });
 
-Route::get('cetirizine-login',function(){
-
-    return view('Auth/cetirizine-login');
-});
 
 Route::get('certificates',function(){
 
@@ -199,3 +202,9 @@ Route::get('appointment-reports',function(){
 
     return view('Admin/Reports/appointment-reports');
 });
+
+
+
+/*==========================*/
+Route::view('citizen-login','Auth.citizen-login');
+Route::post('login_Citizen',[CitizenController::class,'index']);

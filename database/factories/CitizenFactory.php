@@ -19,8 +19,8 @@ class CitizenFactory extends Factory
         return [
             
         'nic' => $this->faker->unique()->regexify('[0-9]{9}[vV]'),
-        'district' => $this->faker->word,
-        'division' => $this->faker->word,
+        'district' => $this->faker->city,
+        'division' => $this->faker->city,
         'is_registered' => false,
 
         

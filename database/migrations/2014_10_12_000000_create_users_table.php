@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('district')->nullable(false);
             $table->string('division')->nullable(false);
             $table->boolean('is_sup_admin')->default(false)->nullable(false);
+            $table->boolean('is_admin')->default(false)->nullable(false);
             $table->boolean('is_view_user')->default(false)->nullable(false);
             $table->boolean('is_edit_user')->default(false)->nullable(false);
             $table->boolean('is_edit_user_access')->default(false)->nullable(false);
