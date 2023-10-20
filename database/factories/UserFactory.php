@@ -15,11 +15,22 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
+            'fname' => $this->faker->firstName(),
+            'lname' => $this->faker->lastName(),
             'email' => $this->faker->unique()->safeEmail(),
-            'email_verified_at' => now(),
+            'phone' => $this->faker->unique()->phoneNumber(),
+            'job_roll' => $this->faker->jobTitle(),
+            'address' => $this->faker->unique()->address,
+            'district' => $this->faker->city,
+            'division' => $this->faker->city,
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
+            'is_sup_admin' =>$this->faker -> boolean,
+            'is_view_user' =>$this->faker -> boolean,
+            'is_edit_user' =>$this->faker -> boolean,
+            'is_edit_user_access' =>$this->faker -> boolean,
+            'is_view_citizen' =>$this->faker -> boolean,
+            'is_edit_citizen' =>$this->faker -> boolean,
+            'is_manage_appointment' =>$this->faker -> boolean,
         ];
     }
 
@@ -28,12 +39,13 @@ class UserFactory extends Factory
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory
      */
-    public function unverified()
+    /*
+     public function unverified()
     {
         return $this->state(function (array $attributes) {
             return [
                 'email_verified_at' => null,
             ];
         });
-    }
+    }*/
 }
