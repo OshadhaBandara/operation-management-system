@@ -6,16 +6,73 @@
         @csrf
         <h1>Login</h1>
         <div>
-          <input type="text" class="form-control" name="nic" placeholder="NIC Numbe" required="" />
+          <input type="text" class="form-control" name="nic-l" placeholder="NIC Numbe" required="" />
+         
         </div>
         <div>
-          <input type="password" class="form-control" name="password" placeholder="Password" required="" />
+          <input type="password" class="form-control" name="password-l" placeholder="Password" required="" />
+        
         </div>
         <div>
           <button style="color: aliceblue" class="btn btn-default submit" >Log in</button>
-          <a class="reset_pass" href="#">Lost your password?</a>
+          <a class="reset_pass" href="#" style="float:unset">Lost your password?</a>
         </div>
 
+      
+        <div class="text-danger" style="text-align: left;margin-top: 20px;text-shadow: none;">
+
+          <ul>
+           
+              @if ($errors->has('nic_l'))
+              <li><span>@error('nic_l') {{ $message }} @enderror</span></li>
+              @endif
+
+              @if ($errors->has('password_l'))
+              <li><span>@error('password_l') {{ $message }} @enderror</span></li>
+              @endif
+
+          </ul>
+        </div>
+       
+
+       
+        <div class="text-danger" style="text-align: left;margin-top: 20px;text-shadow: none;">
+          <ul>
+
+                    @if ($errors->has('nic'))
+                        <li><span>@error('nic') {{ $message }} @enderror</span></li>
+                    @endif
+        
+                    @if ($errors->has('fname'))
+                        <li><span>@error('fname') {{ $message }} @enderror</span></li>
+                    @endif
+        
+                    @if ($errors->has('lname'))
+                        <li><span>@error('lname') {{ $message }} @enderror</span></li>
+                    @endif
+        
+                    @if ($errors->has('email'))
+                        <li><span>@error('email') {{ $message }} @enderror</span></li>
+                    @endif
+        
+                    @if ($errors->has('phone'))
+                        <li><span>@error('phone') {{ $message }} @enderror</span></li>
+                    @endif
+        
+                    @if ($errors->has('password'))
+                        <li><span>@error('password') {{ $message }} @enderror</span></li>
+                    @endif
+                    @if ($errors->has('district'))
+                    <li><span>@error('district') {{ $message }} @enderror</span></li>
+                    @endif   
+                    @if ($errors->has('division'))
+                    <li><span>@error('division') {{ $message }} @enderror</span></li>
+                    @endif
+            
+          </ul>
+        </div>
+        
+      
         <div class="clearfix"></div>
 
         <div class="separator" style="padding-top: 15px; background-color:  #005555;">

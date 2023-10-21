@@ -21,9 +21,14 @@
           background-color: #3e9e9e; /* Change background color on hover */
           color: azure;
           }
+          .login_content form div button:hover {
+          background-color: #3e9e9e; /* Change background color on hover */
+          color: azure;
+          }
           .separator{
             background-color: #005555
           }
+          
           
         </style>
 
@@ -37,11 +42,16 @@
 
         <div class="container">
           <div class="row ">
-            @include('component.error-message')           
+
+            @include('component.error-message')     
+
           </div>
           <div class="row align-self-center">
+
             @include('component.citizen-login-form')
+
             @include('component.citizen-register-form')
+            
           </div>
         </div>
 

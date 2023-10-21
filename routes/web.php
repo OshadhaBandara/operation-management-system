@@ -208,3 +208,7 @@ Route::get('appointment-reports',function(){
 /*==========================*/
 Route::view('citizen-login','Auth.citizen-login');
 Route::post('login_Citizen',[CitizenController::class,'index']);
+Route::post('register_Citizen',[CitizenController::class,'store']);
+Route::get('logout_citizen',[CitizenController::class,'flush']);
+
+
