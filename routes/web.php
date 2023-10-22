@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\CitizenController;
-
+use App\Http\Middleware\AuthCitizen;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,11 +60,6 @@ Route::get('Download',function(){
     return view('download');
 });
 
-Route::get('profile-dashboard', function () {
-    $citizen = session('citizen'); // Retrieve the citizen data from the session
-
-    return view('Profile/dashboard', ['citizen' => $citizen]);
-});
 
 
 Route::get('admin-dashboard',function(){
@@ -78,26 +73,7 @@ Route::get('admin-login',function(){
 });
 
 
-Route::get('certificates',function(){
 
-    return view('Forms/certificates');
-});
-
-Route::get('nic',function(){
-
-    return view('Forms/nic');
-});
-
-Route::get('passport',function(){
-
-    return view('Forms/passport');
-});
-
-
-Route::get('vehicle-revenue',function(){
-
-    return view('Forms/vehicle-revenue');
-});
 
 
 Route::get('pay-details',function(){
@@ -106,10 +82,7 @@ Route::get('pay-details',function(){
 });
 
 
-Route::get('appointment',function(){
 
-    return view('Forms/appointment');
-});
 
 
 Route::get('user-manager',function(){
@@ -206,9 +179,23 @@ Route::get('appointment-reports',function(){
 
 
 /*==========================*/
-Route::view('citizen-login','Auth.citizen-login');
+Route::view('citizen-login','Auth.citizen-login'); 
 Route::post('login_Citizen',[CitizenController::class,'index']);
 Route::post('register_Citizen',[CitizenController::class,'store']);
 Route::get('logout_citizen',[CitizenController::class,'flush']);
+
+
+Route::view('appointment', 'Forms/appointment')->middleware('AuthCitizen');
+Route::view('certificates', 'Forms/certificates')->middleware('AuthCitizen');
+Route::view('nic', 'Forms/nic')->middleware('AuthCitizen');
+Route::view('passport', 'Forms/passport')->middleware('AuthCitizen');
+Route::view('vehicle-revenue', 'Forms/vehicle-revenue')->middleware('AuthCitizen');
+
+
+
+
+Route::view('profile', 'profile')->middleware('AuthCitizen');
+Route::post('profile-store', [CitizenController::class,'update'])->middleware('AuthCitizen');
+Route::post('profile-image-store', [CitizenController::class,'imageStore'])->middleware('AuthCitizen');
 
 

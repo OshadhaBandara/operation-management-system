@@ -39,13 +39,17 @@
           <link href="{{ asset('assets/css/aos.css') }}" rel="stylesheet" />
           <link href="{{asset('assets/css/style.css')}}" rel="stylesheet"/>
 
-
-    
-
-      
+          <style>
 
 
-    
+            .site-nav .site-navigation .site-menu .has-children .dropdown > li > a:hover {
+              color: #000000;
+              background-color:#1e7777;
+              width: 100%;
+            }
+            
+          </style>
+          
 
     <title>
       Property &mdash; Free Bootstrap 5 Website Template by Untree.co
@@ -55,37 +59,13 @@
     
 
 
-
-
     @include('component/heder')
-
-
-
-
-
-
-
-
-
-
 
 
     @yield('Content')
 
 
-
-
-
-
-
-
     @include('component/footer')
-
-
-
-
-
-
 
 
 

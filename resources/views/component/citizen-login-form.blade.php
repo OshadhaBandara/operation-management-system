@@ -6,11 +6,11 @@
         @csrf
         <h1>Login</h1>
         <div>
-          <input type="text" class="form-control" name="nic-l" placeholder="NIC Numbe" required="" />
+          <input type="text" class="form-control" name="nic_l" placeholder="NIC Numbe" required="" />
          
         </div>
         <div>
-          <input type="password" class="form-control" name="password-l" placeholder="Password" required="" />
+          <input type="password" class="form-control" name="password_l" placeholder="Password" required="" />
         
         </div>
         <div>
@@ -19,25 +19,16 @@
         </div>
 
       
-        <div class="text-danger" style="text-align: left;margin-top: 20px;text-shadow: none;">
-
-          <ul>
-           
-              @if ($errors->has('nic_l'))
-              <li><span>@error('nic_l') {{ $message }} @enderror</span></li>
-              @endif
-
-              @if ($errors->has('password_l'))
-              <li><span>@error('password_l') {{ $message }} @enderror</span></li>
-              @endif
-
-          </ul>
-        </div>
-       
-
        
         <div class="text-danger" style="text-align: left;margin-top: 20px;text-shadow: none;">
           <ul>
+                    @if ($errors->has('nic_l'))
+                      <li><span>@error('nic_l') {{ $message }} @enderror</span></li>
+                    @endif
+
+                    @if ($errors->has('password_l'))
+                      <li><span>@error('password_l') {{ $message }} @enderror</span></li>
+                    @endif
 
                     @if ($errors->has('nic'))
                         <li><span>@error('nic') {{ $message }} @enderror</span></li>

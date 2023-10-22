@@ -26,6 +26,7 @@ class CreateCitizensTable extends Migration
             $table->text('address')->nullable();
             $table->string('district')->nullable(false);
             $table->string('division')->nullable(false);
+            $table->string('profile_image')->default('assets/images/picture.jpg');
             $table->boolean('is_registered')->default(false);
             $table->timestamps();
         });

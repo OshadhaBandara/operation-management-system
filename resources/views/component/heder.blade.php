@@ -43,7 +43,6 @@
                 <li>
                   <a href="#">Appointment</a>
                 </li>
-                <li><a href="#">Payments</a></li>
               </ul>
             </li>
             <li><a href="Download">Downloads</a></li>
@@ -51,11 +50,16 @@
             <li><a href="contact-us">Contact Us</a></li>
             <li class="has-children">
               <a href="#">Account</a>
-              <ul class="dropdown">
-                <li><a href="#">Sing Up</a></li>
-                <li><a href="#">Sing In</a></li>
-                <li><a href="#">Profile</a></li>
-               
+              <ul class="dropdown" style="width: 100%">
+                
+                @if (session('is_clogin') == true)
+                  <li><a href="profile" style="display: inline; padding-bottom: 5px;">Profile</a></li>
+                  <li><a href="logout_citizen" style="display: inline;padding-bottom: 5px;">Logout</a></li>
+                @else
+                  <li><a href="citizen-login#signin" style="display: inline;padding-bottom: 5px;">Sing In</a></li>
+                  <li><a href="citizen-login#signup" style="display: inline;padding-bottom: 5px;">Sing Up</a></li>
+                @endif
+     
               </ul>
             </li>
           </ul>

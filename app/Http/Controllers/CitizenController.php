@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
-
 use App\Models\Citizen;
 use App\Models\User;
+use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\Echo_;
+use Illuminate\Support\Arr;
+use Exception;
+use Illuminate\Support\Facades\Storage;
+
+
+
+
+
+
 
 use function PHPUnit\Framework\returnSelf;
 
@@ -15,15 +24,16 @@ class CitizenController extends Controller
      function index(Request $req)
      {
  
-            $req->validate([    
+        
+            
+        $req->validate([    
 
-                'nic_l' => 'required|min:6|max:255',
-                'password_l'  => 'required|min:6', 
-            ]);
+            'nic_l' => 'required|min:6|max:255',
+            'password_l'  => 'required|min:6', 
+        ]);
 
-
-            $citizen = Citizen::where('nic', $req->nic_l)->firstOrFail();
-
+        $citizen = Citizen::where('nic', $req->nic_l)->first();
+           
             if ($citizen) {
 
                 if($citizen->is_registered == true)
@@ -31,14 +41,33 @@ class CitizenController extends Controller
                     if (Hash::check($req->password_l, $citizen->password)) { //check the password
         
                         //add citizen info to session
-                        $req->session()->put('cfName', $citizen->first_name);
-                        $req->session()->put('clName', $citizen->first_name);
+                        $req->session()->put('cfname', $citizen->fname);
+                        $req->session()->put('clname', $citizen->lname);
                         $req->session()->put('is_clogin', true);
                         $req->session()->put('cemail', $citizen->email);
-        
-        
-                        return redirect('profile-dashboard')->with('citizen', $citizen);
+                        $req->session()->put('cnic', $citizen->nic);
+                        $req->session()->put('cdob', $citizen->dob);
+                        $req->session()->put('cgender', $citizen->gender);
+                        $req->session()->put('cpassword', $citizen->password);
+                        $req->session()->put('cphone', $citizen->phone);
+                        $req->session()->put('caddress', $citizen->address);
+                        $req->session()->put('cdistrict', $citizen->district);
+                        $req->session()->put('cdivision', $citizen->division);
+                        $req->session()->put('cdistrict', $citizen->district);
+                        $req->session()->put('cprofile_image', $citizen->profile_image);
 
+                        //dd($citizen);
+                       // dd(session()->all());
+                       /*  $data = array(
+                            'cfName' =>$citizen->fname,
+                            'clName' =>$citizen->clName,
+                            'cnic' =>$citizen->nic,
+                            
+                        );
+ */
+                        
+
+                          return view('profile');
                     } else {
                         return back()->with('fail', 'This password is not correct');
                     }
@@ -106,13 +135,23 @@ class CitizenController extends Controller
         $citizen->update();
 
         //add citizen info to session
-        $req->session()->put('cfName', $citizen->fname);
-        $req->session()->put('clName', $citizen->lname);
+        $req->session()->put('cfname', $citizen->fname);
+        $req->session()->put('clname', $citizen->lname);
         $req->session()->put('is_clogin', true);
-        $req->session()->put('cemail', $citizen->email); 
+        $req->session()->put('cemail', $citizen->email);
+        $req->session()->put('cnic', $citizen->nic);
+        $req->session()->put('cdob', $citizen->dob);
+        $req->session()->put('cgender', $citizen->gender);
+        $req->session()->put('cpassword', $citizen->password);
+        $req->session()->put('cphone', $citizen->phone);
+        $req->session()->put('caddress', $citizen->address);
+        $req->session()->put('cdistrict', $citizen->district);
+        $req->session()->put('cdivision', $citizen->division);
+        $req->session()->put('cdistrict', $citizen->district);
+        $req->session()->put('cprofile_image', $citizen->profile_image);
 
         // Redirect the user after successful registration
-        return redirect('profile-dashboard')->with('citizen', $citizen);
+        return redirect('profile');
         
 
     }
@@ -124,8 +163,123 @@ class CitizenController extends Controller
         // Clear the session data
         session()->flush();
 
-        // Redirect to a specific route or URL after logging out
-        return redirect('/');
+        // Redirect to home
+       return redirect('/');
     }
+
+
+    function update(Request $req)
+    {   
+
+
+       
+
+       /*  dd($req->all()); */
+
+         
+            $req->validate([
+        
+                'password' =>'required|min:6|max:255',
+                'fname' => 'required|min:3',
+                'lname' => 'required|min:3',
+                'email' => 'required|email',
+                'phone' => 'required|min:10|max:13',
+                'dob' => 'required|date',
+                'gender' => 'required',
+                'address' => 'required|min:10|max:255',
+                
+            ]);
+            
+           
+         /*    dd(session()->all()); */
+
+     
+
+        $citizen = Citizen::where('nic',session('cnic'))->first();
+
+        
+         // Set the attributes from the validated data
+         $citizen->password = Hash::make($req['password']);
+         $citizen->fname = $req['fname'];
+         $citizen->lname = $req['lname'];
+         $citizen->email = $req['email'];
+         $citizen->phone = $req['phone'];
+         $citizen->dob = $req['dob'];
+         $citizen->gender = $req['gender'];
+         $citizen->address = $req['address'];
+
+        // Save the new Citizen to the database
+        $citizen->update();
+        
+        
+
+         //add citizen info to session
+         $req->session()->put('cfname', $citizen->fname);
+         $req->session()->put('clname', $citizen->lname);
+         $req->session()->put('cemail', $citizen->email);
+         $req->session()->put('cnic', $citizen->nic);
+         $req->session()->put('cdob', $citizen->dob);
+         $req->session()->put('cgender', $citizen->gender);
+         $req->session()->put('cphone', $citizen->phone);
+         $req->session()->put('caddress', $citizen->address);
+
+        /*  dd(session()->all()); */
+
+
+        return back()->with('success', 'Your Information is successfully updated');
+         
+    }
+
+    function imageStore()
+    {
+
+        try
+        {
+            
+            request()->validate([
+                'image' => 'required|image',
+            ]);
+    
+            $citizenId = session('cnic');
+            $imageFileName = 'citizen_profile_image';
+    
+            // Get the uploaded file's extension
+            $imageExtension = request()->file('image')->getClientOriginalExtension();
+    
+            // Check if a file with $citizenId exists in storage
+            if (Storage::disk('public')->exists($citizenId)) {
+
+                // Check if an image with the name 'citizen_profile_image' exists in that directory
+                if (Storage::disk('public')->exists($citizenId . '/' . $imageFileName . '.' . $imageExtension)) {
+                    // Delete the old image
+                    Storage::disk('public')->delete($citizenId . '/' . $imageFileName . '.' . $imageExtension);
+                }
+    
+                // Store the new image in the citizen's directory and resize it
+                $newFilePath = request()->file('image')->storeAs('public/' . $citizenId, $imageFileName . '.' . $imageExtension);
+    
+               
+                session()->put('cprofile_image', $newFilePath);
+                
+            } else {
+                // If the directory doesn't exist, create it and store the image
+                Storage::disk('public')->makeDirectory($citizenId);
+                $newFilePath = request()->file('image')->storeAs('public/' . $citizenId, $imageFileName . '.' . $imageExtension);
+                session()->put('cprofile_image', $newFilePath);
+            }
+           // @dd(session('cprofile_image'));
+            return redirect()->back()->with('success', 'Image uploaded and resized successfully.');
+            
+
+        }
+        catch(Exception $ex)
+        {
+            $ex->getMessage();
+        }
+
+       
+    }
+    
+
 
 }

@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class AuthCitizen
+class guestCitizen
 {
     /**
      * Handle an incoming request.
@@ -16,12 +16,11 @@ class AuthCitizen
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!session('is_clogin') == true)
+/* 
+        if(!session()->exists('is_clogin'))
         {
-            return redirect('citizen-login')->with('fail', 'To Get the service you need login first');
+            return redirect('citizen-login');
         }
-
-
-        return $next($request);
+        return $next($request); */
     }
 }
