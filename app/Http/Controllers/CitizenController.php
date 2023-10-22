@@ -226,7 +226,7 @@ class CitizenController extends Controller
         /*  dd(session()->all()); */
 
 
-        return back()->with('success', 'Your Information is successfully updated');
+        return redirect('profile')->with('success', 'Your Information is successfully updated');
          
     }
 

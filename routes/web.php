@@ -62,15 +62,6 @@ Route::get('Download',function(){
 
 
 
-Route::get('admin-dashboard',function(){
-
-    return view('Admin/dashboard');
-});
-
-Route::get('admin-login',function(){
-
-    return view('Auth/admin-login');
-});
 
 
 
@@ -199,3 +190,16 @@ Route::post('profile-store', [CitizenController::class,'update'])->middleware('A
 Route::post('profile-image-store', [CitizenController::class,'imageStore'])->middleware('AuthCitizen');
 
 
+
+Route::get('admin-login', function(){
+    
+    if(session()->is_admin_login == true){
+
+        return view('Auth/admin-login');
+    }
+
+    return redirect('profile');
+});
+
+Route::view('admin-dashboard','Admin/dashboard')->middleware('AdminAuth');
+Route::post('admin-auth',[Controller::class,'login'])->middleware('AdminAuth');
