@@ -24,7 +24,7 @@ class UserFactory extends Factory
             'district' => $this->faker->city,
             'division' => $this->faker->city,
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'is_sup_admin' =>$this->faker -> boolean,
+            'is_admin' =>$this->faker -> boolean,
             'is_view_user' =>$this->faker -> boolean,
             'is_edit_user' =>$this->faker -> boolean,
             'is_edit_user_access' =>$this->faker -> boolean,

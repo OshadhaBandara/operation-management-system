@@ -24,8 +24,11 @@
         <div class="main_container">
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
-                    @include('component/admin-sidebar')
-                    @include('component/admin-topbar')
+                   
+                    @include('Admin.Components.admin-sidebar')
+
+                    @include('Admin.Components.admin-topbar')
+
                     <div class="right_col" role="main">
                         <div class="col-md-12 col-sm-12" style="padding-top: 30px">
                             <div class="x_panel">
@@ -78,7 +81,10 @@
                 </div>
             </div>
         </div>
-        @include('component/admin-footer')
+       
+        @include('Admin.Components.admin-footer')
+
+
     </div>
     <!-- jQuery -->
     <script src="{{asset('assets/vendors/jquery/dist/jquery.min.js')}}"></script>

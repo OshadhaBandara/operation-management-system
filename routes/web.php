@@ -76,10 +76,6 @@ Route::get('pay-details',function(){
 
 
 
-Route::get('user-manager',function(){
-
-    return view('Admin/user-manager');
-});
 
 Route::get('user-access',function(){
 
@@ -111,10 +107,7 @@ Route::get('add-citizen-id',function(){
 });
 
 
-Route::get('citizen-manager',function(){
 
-    return view('Admin/citizen-manager');
-});
 
 
 Route::get('view-citizen',function(){
@@ -136,10 +129,6 @@ Route::get('citizen-file-manage',function(){
 });
 
 
-Route::get('citizen-appointment',function(){
-
-    return view('Admin/citizen-appointment');
-});
 
 
 
@@ -170,15 +159,7 @@ Route::get('appointment-reports',function(){
 
 
 /*==========================*/
-Route::view('citizen-login',function(){
-    
-    if(session('is_clogin') == true){
-        
-        return redirect('profile');
-    }
-
-    return view('Auth.citizen-login');
-}); 
+Route::view('citizen-login','Auth/citizen-login'); 
 Route::post('login_Citizen',[CitizenController::class,'index']);
 Route::post('register_Citizen',[CitizenController::class,'store']);
 Route::get('logout_citizen',[CitizenController::class,'flush']);
@@ -210,5 +191,11 @@ Route::get('admin-login', function(){
 });
 
 Route::view('admin-dashboard','Admin/dashboard')->middleware('AdminAuth');
-Route::post('admin-auth',[Controller::class,'login'])->middleware('AdminAuth');
+Route::post('admin-auth',[Controller::class,'login']);
 Route::get('logout_admin',[Controller::class,'flush']);
+
+Route::view('citizen-manager','Admin/citizen-manager');
+
+Route::view('citizen-appointment','Admin/citizen-appointment');
+
+Route::view('user-manager','Admin/user-manager');

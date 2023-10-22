@@ -49,6 +49,7 @@ class Controller extends BaseController
                 session()->put('is_view_citizen',$user->is_view_citizen );
                 session()->put('is_edit_citizen',$user->is_edit_citizen );
                 session()->put('is_manage_appointment',$user->is_manage_appointment );
+                session()->put('profile_file_name',$user->profile_file_name );
 
         
 

@@ -44,8 +44,9 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
 
-            @include('component/admin-sidebar')
-            @include('component/admin-topbar')
+            @include('Admin.Components.admin-sidebar')
+
+              @include('Admin.Components.admin-topbar')
 
 
               <div class="right_col" role="main">
@@ -238,7 +239,7 @@
     
     
 
-    @include('component/admin-footer')
+            @include('Admin.Components.admin-footer')
 
 
 

@@ -48,10 +48,9 @@
   
   
               
-              @include('component/admin-sidebar')
-  
-  
-              @include('component/admin-topbar')
+              @include('Admin.Components.admin-sidebar')
+
+              @include('Admin.Components.admin-topbar')
  
               <!-- page content -->
               <div class="right_col" role="main">
@@ -83,8 +82,10 @@
                 </div>
 
               </div>
-            
-                @include('component/admin-footer')
+            <!-- page content -->
+
+
+        @include('Admin.Components.admin-footer')
             
 
 

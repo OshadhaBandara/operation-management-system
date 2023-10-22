@@ -24,7 +24,6 @@ class CreateUsersTable extends Migration
             $table->text('address')->nullable(false);
             $table->string('district')->nullable(false);
             $table->string('division')->nullable(false);
-            $table->boolean('is_sup_admin')->default(false)->nullable(false);
             $table->boolean('is_admin')->default(false)->nullable(false);
             $table->boolean('is_view_user')->default(false)->nullable(false);
             $table->boolean('is_edit_user')->default(false)->nullable(false);
@@ -32,6 +31,7 @@ class CreateUsersTable extends Migration
             $table->boolean('is_view_citizen')->default(false)->nullable(false);
             $table->boolean('is_edit_citizen')->default(false)->nullable(false);
             $table->boolean('is_manage_appointment')->default(false)->nullable(false);
+            $table->string('profile_file_name')->default('img.jpg');
             $table->timestamps();
         });
     }
