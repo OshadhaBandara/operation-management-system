@@ -170,7 +170,15 @@ Route::get('appointment-reports',function(){
 
 
 /*==========================*/
-Route::view('citizen-login','Auth.citizen-login'); 
+Route::view('citizen-login',function(){
+    
+    if(session('is_clogin') == true){
+        
+        return redirect('profile');
+    }
+
+    return view('Auth.citizen-login');
+}); 
 Route::post('login_Citizen',[CitizenController::class,'index']);
 Route::post('register_Citizen',[CitizenController::class,'store']);
 Route::get('logout_citizen',[CitizenController::class,'flush']);
@@ -193,13 +201,14 @@ Route::post('profile-image-store', [CitizenController::class,'imageStore'])->mid
 
 Route::get('admin-login', function(){
     
-    if(session()->is_admin_login == true){
+    if(session('is_admin_login') == true){
 
-        return view('Auth/admin-login');
+        return redirect('admin-dashboard');
     }
 
-    return redirect('profile');
+    return view('Auth/admin-login');
 });
 
 Route::view('admin-dashboard','Admin/dashboard')->middleware('AdminAuth');
 Route::post('admin-auth',[Controller::class,'login'])->middleware('AdminAuth');
+Route::get('logout_admin',[Controller::class,'flush']);

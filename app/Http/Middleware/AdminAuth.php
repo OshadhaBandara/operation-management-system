@@ -17,7 +17,7 @@ class AdminAuth
     public function handle(Request $request, Closure $next)
     {
 
-        if(!session()->is_admin_login == true)
+        if(!session('is_admin_login') == true)
         {
             return redirect('admin-login')->with('fail','You need to login first');
         }

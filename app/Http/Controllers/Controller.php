@@ -66,4 +66,13 @@ class Controller extends BaseController
              return back()->with('fail', 'Email is not registered !');
           }
     }
+
+    function flush()
+    {
+        // Clear the session data
+        session()->flush();
+
+        // Redirect to home
+       return redirect('admin-login');
+    }
 }
