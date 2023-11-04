@@ -30,18 +30,18 @@
             <li class="has-children">
               <a href="service">Services</a>
               <ul class="dropdown">
-                <li><a href="#">Certificates Requast</a></li>
+                <li><a href="certificates">Certificates Requast</a></li>
                 <li>
-                  <a href="#">NIC</a>
+                  <a href="nic">NIC</a>
                 </li>
                 <li>
-                  <a href="#">Passport</a>
+                  <a href="passport">Passport</a>
                 </li>
                 <li>
-                  <a href="#">Vehicle Licence</a>
+                  <a href="vehicle-revenue">Vehicle Licence</a>
                 </li>
                 <li>
-                  <a href="#">Appointment</a>
+                  <a href="appointment">Appointment</a>
                 </li>
               </ul>
             </li>

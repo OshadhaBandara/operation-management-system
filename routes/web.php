@@ -199,3 +199,9 @@ Route::view('citizen-manager','Admin/citizen-manager');
 Route::view('citizen-appointment','Admin/citizen-appointment');
 
 Route::view('user-manager','Admin/user-manager');
+
+
+
+
+
+

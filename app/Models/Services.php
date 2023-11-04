@@ -1,22 +1,14 @@
 <?php
 
 namespace App\Models;
-use App\Models\Services;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Citizen extends Model
+class Services extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
-
-    
-    
-    public function services()
-    {
-        return $this->hasMany(Services::class,'citizen_id');
-    }
     
 }
