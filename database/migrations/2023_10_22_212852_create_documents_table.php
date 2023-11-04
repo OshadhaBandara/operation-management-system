@@ -34,4 +34,7 @@ class CreateDocumentsTable extends Migration
     {
         Schema::dropIfExists('documents');
     }
+
+
+
 }

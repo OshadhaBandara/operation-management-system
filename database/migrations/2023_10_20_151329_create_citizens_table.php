@@ -15,7 +15,7 @@ class CreateCitizensTable extends Migration
     {
         Schema::create('citizens', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('service_id')->nullable();
+           // $table->foreignId('service_id')->nullable();
            /*  $table->foreignId('document_id')->nullable(); */
             $table->string('fname')->nullable();
             $table->string('lname')->nullable();
@@ -45,5 +45,5 @@ class CreateCitizensTable extends Migration
     }
 
 
-    
+
 }
