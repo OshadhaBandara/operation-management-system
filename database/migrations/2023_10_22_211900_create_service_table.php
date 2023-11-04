@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateServicesTable extends Migration
+class CreateServiceTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateServicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('services', function (Blueprint $table) {
+        Schema::create('service', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('citizen_id')->nullable(false);
             $table->string('certificate_type')->nullable();
@@ -40,4 +40,9 @@ class CreateServicesTable extends Migration
     {
         Schema::dropIfExists('services');
     }
+
+
+
+
+
 }
