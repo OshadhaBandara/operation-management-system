@@ -28,23 +28,25 @@ class CitizenController extends Controller
     function intProfile()
     {
         // Retrieve the citizen with their associated services and payments
+
         $citizen = Citizen::with(['services.payments', 'documents'])->find(request()->session()->get('cid'));
     
-        // Check if the citizen is found
         if ($citizen) {
-            // Access the services and payments of the citizen
+            
+            // Access the services on citizen
             $services = $citizen->services;
     
-            // Now you can access payments for each service
+            // access payments for each service
+
             foreach ($services as $service) {
-                $payments = $service->payments; // This will give you the payments related to each service
+                $payments = $service->payments; 
                // dd($payments);
             }
     
-            // You can also access the documents for the citizen
+            //access the documents for the citizen
             $documents = $citizen->documents;
     
-            // Return the view with the retrieved data
+ 
             return view('profile', compact('citizen', 'services', 'payments', 'documents'));
         } else {
             // Handle the case when the citizen is not found
@@ -105,10 +107,26 @@ class CitizenController extends Controller
                             'cnic' =>$citizen->nic,
                             
                         );
- */
-                        
+            */
+            
+                        // Access the services on citizen
+                        $services = $citizen->services;
+                
+                        // access payments for each service
 
-                          return view('profile');
+                        foreach ($services as $service) {
+                            $payments = $service->payments; 
+                        // dd($payments);
+                        }
+                
+                        //access the documents for the citizen
+                        $documents = $citizen->documents;
+    
+ 
+                        return view('profile', compact('citizen', 'services', 'payments', 'documents'));
+
+                          //return view('profile');
+
                     } else {
                         return back()->with('fail', 'This password is not correct');
                     }
