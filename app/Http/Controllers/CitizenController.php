@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Citizen;
+use App\Models\Service;
 use App\Models\User;
 use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
@@ -21,6 +22,41 @@ use function PHPUnit\Framework\returnSelf;
 
 class CitizenController extends Controller
 {
+
+
+
+    function intProfile()
+    {
+        // Retrieve the citizen with their associated services and payments
+        $citizen = Citizen::with(['services.payments', 'documents'])->find(request()->session()->get('cid'));
+    
+        // Check if the citizen is found
+        if ($citizen) {
+            // Access the services and payments of the citizen
+            $services = $citizen->services;
+    
+            // Now you can access payments for each service
+            foreach ($services as $service) {
+                $payments = $service->payments; // This will give you the payments related to each service
+               // dd($payments);
+            }
+    
+            // You can also access the documents for the citizen
+            $documents = $citizen->documents;
+    
+            // Return the view with the retrieved data
+            return view('profile', compact('citizen', 'services', 'payments', 'documents'));
+        } else {
+            // Handle the case when the citizen is not found
+            // For example, you can return an error view or redirect.
+            return view('/');
+        }
+    }
+    
+
+
+
+
      function index(Request $req)
      {
  

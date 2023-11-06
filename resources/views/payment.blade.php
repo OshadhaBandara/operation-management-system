@@ -42,7 +42,7 @@
 
                                                 <p class="mb-2">
                                                     <span class="fw-bold">Total</span>
-                                                    <span class="c-green">: Rs. {{ Session('productItemPrice')    }}</span>
+                                                    <span class="c-green">: Rs. {{Session('productItemPrice') + Session('delivery_price')  }} </span>
                                                 </p>
 
                                                 <p hidden class="mb-2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque

@@ -171,6 +171,7 @@ Route::view('certificates', 'Forms/certificates')->middleware('AuthCitizen');
 Route::post('certificates-store', [ServicesController::class,'store'])->middleware('AuthCitizen');
 Route::view('payment', 'payment')->middleware('AuthCitizen');
 Route::post('payment_store', [ServicesController::class,'payment'])->middleware('AuthCitizen');
+Route::get('payment_pending/{id}', [ServicesController::class,'paymentPending'])->middleware('AuthCitizen');
 
 
 
@@ -181,7 +182,7 @@ Route::view('vehicle-revenue', 'Forms/vehicle-revenue')->middleware('AuthCitizen
 
 
 
-Route::view('profile', 'profile')->middleware('AuthCitizen');
+Route::get('profile', [CitizenController::class,'intProfile'])->middleware('AuthCitizen');
 Route::post('profile-store', [CitizenController::class,'update'])->middleware('AuthCitizen');
 Route::post('profile-image-store', [CitizenController::class,'imageStore'])->middleware('AuthCitizen');
 
