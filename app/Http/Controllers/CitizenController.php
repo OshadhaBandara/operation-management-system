@@ -33,7 +33,7 @@ class CitizenController extends Controller
         ]);
 
         $citizen = Citizen::where('nic', $req->nic_l)->first();
-           
+          // ddd($citizen->documents->grama_niladari_certificate);
             if ($citizen) {
 
                 if($citizen->is_registered == true)
@@ -41,6 +41,7 @@ class CitizenController extends Controller
                     if (Hash::check($req->password_l, $citizen->password)) { //check the password
         
                         //add citizen info to session
+                        $req->session()->put('cid', $citizen->id);
                         $req->session()->put('cfname', $citizen->fname);
                         $req->session()->put('clname', $citizen->lname);
                         $req->session()->put('is_clogin', true);
@@ -54,7 +55,11 @@ class CitizenController extends Controller
                         $req->session()->put('cdistrict', $citizen->district);
                         $req->session()->put('cdivision', $citizen->division);
                         $req->session()->put('cdistrict', $citizen->district);
-                        $req->session()->put('cprofile_image', $citizen->profile_image);
+                        $req->session()->put('grama_niladari_certificate',$citizen->documents->grama_niladari_certificate);
+                        $req->session()->put('v_emission_certificate', $citizen->documents->v_emission_certificate);
+                        $req->session()->put('birth_certificate',$citizen->documents->birth_certificate);
+                        $req->session()->put('vehicle_license', $citizen->documents->vehicle_license);
+                        $req->session()->put('appointment_attachment', $citizen->documents->appointment_attachment);
 
                         //dd($citizen);
                        // dd(session()->all());

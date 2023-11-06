@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\CitizenController;
+use App\Http\Controllers\ServicesController;
 use App\Http\Middleware\AuthCitizen;
 
 /*
@@ -167,6 +168,12 @@ Route::get('logout_citizen',[CitizenController::class,'flush']);
 
 Route::view('appointment', 'Forms/appointment')->middleware('AuthCitizen');
 Route::view('certificates', 'Forms/certificates')->middleware('AuthCitizen');
+Route::post('certificates-store', [ServicesController::class,'store'])->middleware('AuthCitizen');
+Route::view('payment', 'payment')->middleware('AuthCitizen');
+Route::post('payment_store', [ServicesController::class,'payment'])->middleware('AuthCitizen');
+
+
+
 Route::view('nic', 'Forms/nic')->middleware('AuthCitizen');
 Route::view('passport', 'Forms/passport')->middleware('AuthCitizen');
 Route::view('vehicle-revenue', 'Forms/vehicle-revenue')->middleware('AuthCitizen');

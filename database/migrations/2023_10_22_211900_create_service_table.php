@@ -13,7 +13,7 @@ class CreateServiceTable extends Migration
      */
     public function up()
     {
-        Schema::create('service', function (Blueprint $table) {
+        Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('citizen_id')->nullable(false);
             $table->string('certificate_type')->nullable();
@@ -26,7 +26,10 @@ class CreateServiceTable extends Migration
             $table->string('appointment_description')->nullable();
             $table->string('old_passport_id_Number')->nullable();
             $table->string('old_nic_id_Number')->nullable();
+            $table->string('delivary_method')->nullable(false);
+            //$table->decimal('price', 10, 2);
             $table->boolean('service_status')->default(false);
+            $table->boolean('service_payment')->default(false);
             $table->timestamps();
         });
     }
