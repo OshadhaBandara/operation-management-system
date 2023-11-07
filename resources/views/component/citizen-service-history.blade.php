@@ -99,10 +99,9 @@
                                               <td>{{ $serviceType}}</td>
                                               <td>{{ \Carbon\Carbon::parse($service->created_at)->format('F j, Y') }}</td>
                                               <td >{{$service->delivary_method}}</td>
-                                              <td >{{$service->payments->total}}</td>
+                                              <td >{{$service->total}}</td>
                                               <td>{{$paymentStatus}}</td>
                                             </tr>
-                                           
                                         </tbody>
                                         
                                     </div>

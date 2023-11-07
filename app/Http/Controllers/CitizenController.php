@@ -28,25 +28,21 @@ class CitizenController extends Controller
     function intProfile()
     {
         // Retrieve the citizen with their associated services and payments
-
         $citizen = Citizen::with(['services.payments', 'documents'])->find(request()->session()->get('cid'));
     
         if ($citizen) {
-            
             // Access the services on citizen
             $services = $citizen->services;
+            $payments = []; // Define an empty array for payments
     
-            // access payments for each service
-
+            // Access payments for each service and push them into the $payments array
             foreach ($services as $service) {
-                $payments = $service->payments; 
-               // dd($payments);
+                $payments[] = $service->payments;
             }
     
-            //access the documents for the citizen
+            // Access the documents for the citizen
             $documents = $citizen->documents;
     
- 
             return view('profile', compact('citizen', 'services', 'payments', 'documents'));
         } else {
             // Handle the case when the citizen is not found

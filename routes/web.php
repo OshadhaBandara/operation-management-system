@@ -159,7 +159,14 @@ Route::get('appointment-reports',function(){
 
 
 
+
+
+
+
+
+
 /*==========================*/
+
 Route::view('citizen-login','Auth/citizen-login'); 
 Route::post('login_Citizen',[CitizenController::class,'index']);
 Route::post('register_Citizen',[CitizenController::class,'store']);
@@ -176,6 +183,8 @@ Route::get('payment_pending/{id}', [ServicesController::class,'paymentPending'])
 
 
 Route::view('nic', 'Forms/nic')->middleware('AuthCitizen');
+Route::post('nic-store',[ServicesController::class,'nicStore'])->middleware('AuthCitizen');
+
 Route::view('passport', 'Forms/passport')->middleware('AuthCitizen');
 Route::view('vehicle-revenue', 'Forms/vehicle-revenue')->middleware('AuthCitizen');
 

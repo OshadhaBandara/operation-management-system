@@ -21,7 +21,7 @@ class CreatePaymentsTable extends Migration
             $table->string('item_price')->nullable();
             $table->string('delivery_price')->nullable();
             $table->string('delivary_method')->nullable();
-            $table->string('total')->nullable();
+            $table->decimal('total', 10, 2)->nullable();
             $table->timestamps();
         });
     }

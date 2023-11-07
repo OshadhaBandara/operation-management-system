@@ -27,6 +27,9 @@ class CreateServiceTable extends Migration
             $table->string('old_passport_id_Number')->nullable();
             $table->string('old_nic_id_Number')->nullable();
             $table->string('delivary_method')->nullable(false);
+            $table->decimal('item_price', 10, 2)->nullable();
+            $table->decimal('delivery_price', 10, 2)->nullable();
+            $table->decimal('total', 10, 2)->nullable();
             //$table->decimal('price', 10, 2);
             $table->boolean('service_status')->default(false);
             $table->boolean('service_payment')->default(false);
