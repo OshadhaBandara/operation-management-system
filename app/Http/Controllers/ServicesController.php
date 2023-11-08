@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Document;
 use App\Models\Payment;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class ServicesController extends Controller
 {
@@ -13,11 +15,6 @@ class ServicesController extends Controller
 
     function store()
     {
-
-  
-
-
-
         request()->validate([
             "First_Name" => 'required|string|max:255',
             "Last_Name" => 'required|string|max:255',
@@ -70,8 +67,10 @@ class ServicesController extends Controller
 
         $service = Service::create([
             'citizen_id' => request('cid'), 
+            'service_type' => request('service_type'), 
             'certificate_type' => request('Certificate'),
             'delivary_method' => request('delivary-method'),
+            'service_type' => request('service_type'),
             'item_price' => $productItemPrice,
             'delivery_price' => $Dilivery_price,
             'total' =>$totalPrice,
@@ -83,6 +82,7 @@ class ServicesController extends Controller
 
         session()->put('delivary_method',  Request('delivary-method'));
         session()->put('product_item',  Request('Certificate'));
+        session()->put('service_type',  Request('service_type'));
         session()->put('productItemPrice',  $productItemPrice );
         session()->put('service_id',  $service->id);
         session()->put('delivery_price', $Dilivery_price);
@@ -144,6 +144,9 @@ class ServicesController extends Controller
 
     }
 
+
+
+
     function paymentPending($id)
     {
        
@@ -193,6 +196,7 @@ class ServicesController extends Controller
         session()->put('service_id',  $service->id);
         session()->put('delivery_price', $Dilivery_price);
         session()->put('totalPrice', $totalPrice);
+        session()->put('service_type', $service->service_type);
 
 
         return redirect('payment');
@@ -207,7 +211,7 @@ class ServicesController extends Controller
     {
 
   
-         ddd(Request()->all());
+        
 
 
         request()->validate([
@@ -219,39 +223,124 @@ class ServicesController extends Controller
             "District" => 'required|string|max:255',
             "Division" => 'required|string|max:255',
             "Address" => 'required|string',
-            "Certificate" => 'required|string',
-            "delivary-method" => 'required|string',
+            "nic_type" => 'required|string',
+            "grama_niladari_certificate" => 'required|image|mimes:jpeg,png,jpg,gif',
+            "birth_certificate" => 'required|image|mimes:jpeg,png,jpg,gif',
+            "delivary_method" => 'required',
         ]);
         
-        // ddd(Request('delivary-method'));
+       //dd(Request()->session()->get('cid'));
+        //dd(request()->all());
 
+
+
+
+        try {
+
+            if(request()->nic_type == 'New NIC') 
+            {
+                $productItemPrice =5000.00;
+            }
     
-        $service = Service::create([
-            'citizen_id' => request('cid'), 
-            'certificate_type' => request('Certificate'),
-            'delivary_method' => request('delivary-method'),
-            //'price' => 5.00,
+            if(request()->nic_type == 'NIC Renewal') 
+            {
+                $productItemPrice = 2000.00;
+            }
+ 
+    
+            if(Request('delivary-method') == 'deliver')
+            {
+                $Dilivery_price = 1000.00;
+            }
+            else
+            {
+                $Dilivery_price = 500.00;
+            }
+
+            $totalPrice = $productItemPrice + $Dilivery_price;
 
 
-        ]);
+            $cnic = request()->session()->get('cnic');
+            $cnicDirectory = storage_path('app/public/' . $cnic);
+        
+            if (!file_exists($cnicDirectory)) {
+                // Create a directory for the user if it doesn't exist
+                mkdir($cnicDirectory, 0755, true);
+            }
+        
+            $gramaNiladariCertificateName = $cnic . '_grama_niladari_certificate.' . request('grama_niladari_certificate')->getClientOriginalExtension();
+            $birthCertificateName = $cnic . '_birth_certificate.' . request('birth_certificate')->getClientOriginalExtension();
+        
+            
 
-        //dd(request()->delivary-method);
+            DB::beginTransaction(); // Start a database transaction
 
 
-        if(request()->Certificate == 'Birth Certificates') 
-        {
-            $productItemPrice = 1500.00;
+            $service = Service::create([
+                'citizen_id' => request('cid'), 
+                'service_type' => request('service_type'), 
+                'nic_service_type' => request('nic_type'), 
+                'delivary_method' => request('delivary_method'),
+                'total' =>$totalPrice,
+            ]);
+    
+            
+    /* 
+            $gramaNiladariCertificateName = request('grama_niladari_certificate')->getClientOriginalName();
+            $birthCertificateName = request('birth_certificate')->getClientOriginalName();
+    
+            //dd( $birthCertificateName); */
+    
+            $document =Document::where('citizen_id', Request()->session()->get('cid'))->first();
+
+        
+            if ($document) {
+
+                $document->grama_niladari_certificate = $gramaNiladariCertificateName;
+                $document->birth_certificate = $birthCertificateName;
+                $document->update();
+
+            } else {
+
+                Document::create([
+                    'citizen_id' => request('cid'),
+                    'grama_niladari_certificate' => $gramaNiladariCertificateName,
+                    'birth_certificate' => $birthCertificateName,
+                ]);
+
+            }
+        
+
+            
+            // Move and store the images with the new file names in the user's directory
+            request('grama_niladari_certificate')->move($cnicDirectory, $gramaNiladariCertificateName);
+            request('birth_certificate')->move($cnicDirectory, $birthCertificateName);
+
+
+
+            DB::commit(); // Commit the transaction
+           // return back()->with('success', 'Document saved successfully');
+
+
+           session()->put('delivary_method',  Request('delivary-method'));
+           session()->put('product_item',  Request('service_type'));
+           session()->put('productItemPrice',  $productItemPrice );
+           session()->put('service_id',  $service->id);
+           session()->put('delivery_price', $Dilivery_price);
+           session()->put('totalPrice', $totalPrice);
+
+           return redirect('payment')->with('success', 'Request is successfully created, Please make payment');
+
+           
+        } catch (\Exception $e) {
+            DB::rollBack(); // Rollback the transaction in case of an exception
+        
+            throw $e;
+           // return back()->with('fail', 'An error occurred while saving the document: ' . $e->getMessage());
         }
-
-        if(request()->Certificate == 'Marriag Certificates') 
-        {
-            $productItemPrice = 5000.00;
-        }
-
-        if(request()->Certificate == 'Grama Niladari Certificates') 
-        {
-            $productItemPrice = 500.00;
-        }
+     
+/* 
+        
 
 
 
@@ -259,29 +348,16 @@ class ServicesController extends Controller
 
 
 
-        if(Request('delivary-method') == 'deliver')
-        {
-            $Dilivery_price = 1000.00;
-        }
-        else
-        {
-            $Dilivery_price = 500.00;
-        }
 
-        $totalPrice = $productItemPrice + $Dilivery_price;
+       
 
 
-        session()->put('delivary_method',  Request('delivary-method'));
-        session()->put('product_item',  Request('Certificate'));
-        session()->put('productItemPrice',  $productItemPrice );
-        session()->put('service_id',  $service->id);
-        session()->put('delivery_price', $Dilivery_price);
-        session()->put('totalPrice', $totalPrice);
 
 
-        return redirect('payment')->with('success', 'Request is successfully created, Please make payment');
+
+       
         //return redirect('payment')->with('data', $data)->with('success', 'Request is successfully created, Please make payment');
-
+ */
 
 
 

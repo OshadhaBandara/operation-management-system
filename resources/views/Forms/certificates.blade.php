@@ -18,6 +18,8 @@
                             @csrf
 
                             <input type="text" hidden name="cid" value="{{session('cid')}}">
+                            <input type="text" hidden name="service_type" value="certificate Services">
+
                             <div class="form-group row">
                                 <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">First Name <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">

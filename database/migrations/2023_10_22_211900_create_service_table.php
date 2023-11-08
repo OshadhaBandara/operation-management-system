@@ -16,6 +16,7 @@ class CreateServiceTable extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('citizen_id')->nullable(false);
+            $table->string('service_type')->nullable(false);
             $table->string('certificate_type')->nullable();
             $table->string('nic_service_type')->nullable();
             $table->string('passport_type')->nullable();
@@ -30,7 +31,6 @@ class CreateServiceTable extends Migration
             $table->decimal('item_price', 10, 2)->nullable();
             $table->decimal('delivery_price', 10, 2)->nullable();
             $table->decimal('total', 10, 2)->nullable();
-            //$table->decimal('price', 10, 2);
             $table->boolean('service_status')->default(false);
             $table->boolean('service_payment')->default(false);
             $table->timestamps();
