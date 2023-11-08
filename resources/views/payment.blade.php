@@ -28,7 +28,7 @@
                                         <div class="row">
                                             <div class="col-lg-5 mb-lg-0 mb-3">
                                                 <p class="h4 mb-2">Summary</p>
-                                                <p class="mb-2"><span class="fw-bold">Product:</span><span class="c-green">: {{ Session('product_item')}}</span>
+                                                <p class="mb-2"><span class="fw-bold">Product:</span><span class="c-green"> {{ Session('service_type')}}</span>
                                                 </p>
                                                 <p class="mb-2">
                                                     <span class="fw-bold">Product Price:</span>

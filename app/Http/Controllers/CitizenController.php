@@ -67,7 +67,7 @@ class CitizenController extends Controller
         ]);
 
         $citizen = Citizen::where('nic', $req->nic_l)->first();
-          dd($citizen->services->service_type);
+          //dd($citizen->services->service_type);
           
             if ($citizen) {
 
@@ -95,7 +95,7 @@ class CitizenController extends Controller
                         $req->session()->put('birth_certificate',$citizen->documents->birth_certificate);
                         $req->session()->put('vehicle_license', $citizen->documents->vehicle_license);
                         $req->session()->put('appointment_attachment', $citizen->documents->appointment_attachment);
-                        $req->session()->put('service_type', $citizen->services->service_type);
+                       // $req->session()->put('service_type', $citizen->services->service_type);
 
                         //dd($citizen);
                        // dd(session()->all());

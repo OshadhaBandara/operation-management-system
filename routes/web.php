@@ -190,6 +190,7 @@ Route::post('passport_store',[ServicesController::class,'passportStore'])->middl
 
 
 Route::view('vehicle-revenue', 'Forms/vehicle-revenue')->middleware('AuthCitizen');
+Route::post('vh_revenue_store',[ServicesController::class,'revenueStore'])->middleware('AuthCitizen');
 
 
 

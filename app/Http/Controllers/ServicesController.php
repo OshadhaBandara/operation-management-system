@@ -153,7 +153,7 @@ class ServicesController extends Controller
         $service = Service::where('id', $id)->first();
 
         session()->put('delivary_method',  $service->delivary_method);
-        session()->put('product_item',  $service->certificate_type);
+        session()->put('service_type',  $service->service_type);
         session()->put('productItemPrice',  $service->item_price );
         session()->put('service_id',  $service->id);
         session()->put('delivery_price',$service->delivery_price);
@@ -431,5 +431,135 @@ class ServicesController extends Controller
         }
 
 
+    }
+
+
+    function revenueStore()
+    {
+        //dd(request()->all());
+
+
+        
+       
+        request()->validate([
+            "First_Name" => 'required|string|max:255',
+            "Last_Name" => 'required|string|max:255',
+            "NIC" => 'required|string|max:12|exists:citizens,nic', 
+            "Email" => 'required|string|email|max:255', 
+            "Phone" => 'required|string|max:20',
+            "District" => 'required|string|max:255',
+            "Division" => 'required|string|max:255',
+            "Address" => 'required|string',
+            "revenue_license_type" => 'required|string',
+            "vehicle_license" => 'required|image|mimes:jpeg,png,jpg,gif',
+            "vehicle_emission" => 'required|image|mimes:jpeg,png,jpg,gif',
+            "delivary_method" => 'required',
+        ]);
+        
+
+
+      //  dd(request()->all());
+
+
+
+
+        try {
+
+            if(request()->revenue_license_type == 'New Vehicle Revenue License') 
+            {
+                $productItemPrice =3000.00;
+            }
+    
+            if(request()->revenue_license_type == 'Vehicle Revenue License Renewal') 
+            {
+                $productItemPrice = 2000.00;
+            }
+ 
+    
+            if(Request('delivary-method') == 'deliver')
+            {
+                $Dilivery_price = 1000.00;
+            }
+            else
+            {
+                $Dilivery_price = 500.00;
+            }
+
+            $totalPrice = $productItemPrice + $Dilivery_price;
+
+
+            $cnic = request()->session()->get('cnic');
+            $cnicDirectory = storage_path('app/public/' . $cnic);
+        
+            if (!file_exists($cnicDirectory)) {
+                // Create a directory for the user if it doesn't exist
+                mkdir($cnicDirectory, 0755, true);
+            }
+        
+            $vehicleLicenseName = $cnic . '_vehicle_license.' . request('vehicle_license')->getClientOriginalExtension();
+            $vehicleEmissionName = $cnic . '_vehicle_emission.' . request('vehicle_emission')->getClientOriginalExtension();
+        
+            
+
+            DB::beginTransaction(); // Start a database transaction
+
+
+            $service = Service::create([
+                'citizen_id' => request('cid'), 
+                'service_type' => request('service_type'), 
+                'passport_type' => request('revenue_license_type'), 
+                'delivary_method' => request('delivary_method'),
+                'item_price' => $productItemPrice,
+                'delivery_price' => $Dilivery_price,
+                'total' =>$totalPrice,
+            ]);
+    
+
+    
+            $document =Document::where('citizen_id', Request()->session()->get('cid'))->first();
+
+        
+            if ($document) {
+
+                $document->vehicle_license = $vehicleLicenseName;
+                $document->v_emission_certificate = $vehicleEmissionName;
+                $document->update();
+
+            } else {
+
+                Document::create([
+                    'citizen_id' => request('cid'),
+                    'vehicle_license' => $vehicleLicenseName,
+                    'v_emission_certificate' => $vehicleEmissionName,
+                ]);
+
+            }
+            
+            // Move and store the images with the new file names in the user's directory
+            request('vehicle_license')->move($cnicDirectory, $vehicleLicenseName);
+            request('vehicle_emission')->move($cnicDirectory, $vehicleEmissionName);
+
+
+
+            DB::commit(); // Commit the transaction
+           // return back()->with('success', 'Document saved successfully');
+
+
+           session()->put('delivary_method',  Request('delivary-method'));
+           session()->put('product_item',  Request('service_type'));
+           session()->put('productItemPrice',  $productItemPrice );
+           session()->put('service_id',  $service->id);
+           session()->put('delivery_price', $Dilivery_price);
+           session()->put('totalPrice', $totalPrice);
+
+           return redirect('payment')->with('success', 'Request is successfully created, Please make payment');
+
+           
+        } catch (\Exception $e) {
+            DB::rollBack(); // Rollback the transaction in case of an exception
+        
+            //throw $e;
+            return back()->with('fail', 'An error occurred while saving the document / service request: ' . $e->getMessage());
+        }
     }
 }
