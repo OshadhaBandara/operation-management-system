@@ -14,98 +14,150 @@
                     <div >
 
                       
-                        <form class=" form-label-left">
+                        <form class="form-label-left" action="appointment_store" method="POST" enctype="multipart/form-data">
+                            @csrf
+
+
+                            <input type="text" hidden name="cid" value="{{session('cid')}}">
+                            <input type="text" hidden name="service_type" value="appointment">+
+
                             <div class="form-group row">
                                 <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">First Name <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
-                                    <input type="text" id="first-name" required="required" class="form-control" disabled >
+                                    <input type="text" id="first-name" name="First_Name" required="required" class="form-control" readonly value="{{session('cfname')}}">
+                                    
+                                    <div class="text-danger" style="text-align: center">
+                                        <span>@error('First_Name') {{ $message }} @enderror</span>
+                                    </div>
+                                
                                 </div>
                             </div>
-                            <div class="form-group row">
+
+
+                             <div class="form-group row">
                                 <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Last Name <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
-                                    <input type="text" id="last-name" name="last-name" required="required" class="form-control" disabled>
+                                    <input type="text" value="{{session('clname')}}" id="last-name" name="Last_Name" required="required" class="form-control" readonly>
+                                    
+                                    <div class="text-danger">
+                                        <span  style="text-align: center">@error('Last_Name') {{ $message }} @enderror</span>
+                                    </div>
+                                
                                 </div>
+                               
                             </div>
+
                             <div class="form-group row">
-                                <label for="nic" class="col-form-label col-md-3 col-sm-3 label-align">NIC</label>
+                                <label for="nic" class="col-form-label col-md-3 col-sm-3 label-align">NIC<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
-                                    <input id="middle-name" class="form-control" type="text" name="nic"  inputmode="none" disabled>
+                                    <input id="middle-name" value="{{session('cnic')}}" class="form-control" type="text" name="NIC" readonly inputmode="none">
+                                
+                                    <div class="text-danger">
+                                        <span  style="text-align: center">@error('NIC') {{ $message }} @enderror</span>
+                                    </div>
+                                
                                 </div>
                             </div>
+                            
 
                             <div class="form-group row">
                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Email<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
-                                    <input id="birthday" class="form-control" required="required" type="email">
+                                    <input id="birthday"  value="{{session('cemail')}}" class="form-control" name="Email" required="required" type="email">
+                                    
+                                    <div class="text-danger">
+                                        <span  style="text-align: center">@error('Email') {{ $message }} @enderror</span>
+                                    </div>
+                                
                                 </div>
                             </div>
+
 
                             <div class="form-group row">
                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Phone Number<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
-                                    <input id="birthday" class="form-control" required="required" type="text">
+                                    <input id="birthday" value="{{session('cphone')}}" class="form-control" name="Phone" required="required" type="text">
+                               
+                                    <div class="text-danger">
+                                        <span  style="text-align: center">@error('Phone') {{ $message }} @enderror</span>
+                                    </div>
+
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-form-label col-md-3 col-sm-3 label-align">Address ( 100 max)<span class="required">*</span></label>
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Address<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
-                                    <textarea id="Address" required="required" class="form-control" name="Address" data-parsley-trigger="keyup" data-parsley-maxlength="100"  ></textarea>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-form-label col-md-3 col-sm-3 label-align">District<span >*</span></label>
-                                <div class="col-md-6 col-sm-6 ">
-                                    <select class="form-control">
-                                        <option>Choose option</option>
-                                        <option>District1</option>
-                                        <option>District2</option>
-                                        
-                                    </select>
+                                    <textarea readonly id="Address" required="required" class="form-control" name="Address" data-parsley-trigger="keyup" data-parsley-maxlength="100"  > {{session('caddress')}}</textarea>
+                                    
+                                    <div class="text-danger">
+                                        <span  style="text-align: center">@error('Address') {{ $message }} @enderror</span>
+                                    </div>
+                                
                                 </div>
                             </div>
 
 
-                            <div class="form-group row">
-                                <label class="col-form-label col-md-3 col-sm-3 label-align">Divitions<span >*</span></label>
-                                <div class="col-md-6 col-sm-6 ">
-                                    <select class="form-control">
-                                        <option>Choose option</option>
-                                        <option>Divitions1</option>
-                                        <option>Divitions2</option>
-                                        
-                                    </select>
+                          <div class="form-group row">
+                                <label for="nic" class="col-form-label col-md-3 col-sm-3 label-align">District<span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input id="middle-name" value="{{session('cdistrict')}}" class="form-control" type="text" name="District" readonly inputmode="none">
+                                    
+                                    <div class="text-danger">
+                                        <span  style="text-align: center">@error('District') {{ $message }} @enderror</span>
+                                    </div>
+                               
                                 </div>
                             </div>
 
-                            
+
+
+
                             <div class="form-group row">
-                                <label class="col-form-label col-md-3 col-sm-3 label-align">Service Type<span >*</span></label>
+                                <label for="nic" class="col-form-label col-md-3 col-sm-3 label-align">Division<span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input id="middle-name" value="{{session('cdivision')}}" class="form-control" type="text" name="Division" readonly inputmode="none">
+                                    
+                                    <div class="text-danger">
+                                        <span  style="text-align: center">@error('Division') {{ $message }} @enderror</span>
+                                    </div>                                
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Appointment Type<span >*</span></label>
                                 <div class="col-md-6 col-sm-6 ">
-                                    <select class="form-control">
-                                        <option>Choose option</option>
-                                        <option>inquirys</option>
+                                    <select class="form-control" name="appointment_type">
+                                        <option disabled selected>Choose option</option>
+                                        <option>Land inquirys office</option>
                                         <option>Appointment with Grama Niladari</option>
                                         <option>Appointment with Samurdi Niladari</option>
                                         <option>Appointment with Sanwardana Niladari</option>
+                                        
                                     </select>
+                                    <div class="text-danger">
+                                        <span  style="text-align: center">@error('appointment_type') {{ $message }} @enderror</span>
+                                    </div> 
                                 </div>
                             </div>
+                            
 
 
                             <div class="form-group row">
                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Appontment Date </label>
                                 <div class="col-md-6 col-sm-6">
-                                    <input id="NIC" class="form-control" required="required" type="Date">
+                                    <input id="NIC" class="form-control" required="required" type="Date" name="appointment_date">
+                                    <div class="text-danger">
+                                        <span  style="text-align: center">@error('appointment_date') {{ $message }} @enderror</span>
+                                    </div> 
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Appointment Time</label>
                                 <div class="col-md-6 col-sm-6">
-                                    <select id="appointment-time" class="form-control" required>
+                                    <select id="appointment-time" class="form-control" required name="appointment_time">
                                         @for ($hour = 8; $hour < 17; $hour++)
                                             @for ($minute = 0; $minute < 60; $minute += 15)
                                                 @php
@@ -115,6 +167,9 @@
                                             @endfor
                                         @endfor
                                     </select>
+                                    <div class="text-danger">
+                                        <span  style="text-align: center">@error('appointment_time') {{ $message }} @enderror</span>
+                                    </div> 
                                 </div>
                             </div>
                             
@@ -125,8 +180,11 @@
                                 <label class="col-form-label col-md-3 col-sm-3 label-align"> Description <span >*</span></label>
                                 <div class="col-md-6 col-sm-6">
                                     <div class="form-group"> 
-                                        <textarea class="resizable_textarea form-control" placeholder="Please add the description"></textarea>
+                                        <textarea class="resizable_textarea form-control" placeholder="Please add the description" name="appointment_description"></textarea>
                                     </div>
+                                    <div class="text-danger">
+                                        <span  style="text-align: center">@error('appointment_description') {{ $message }} @enderror</span>
+                                    </div> 
                                 </div>
                             </div>
 
@@ -134,17 +192,21 @@
                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Attachment<span >*</span></label>
                                 <div class="col-md-6 col-sm-6">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="grama-niladari-certificate" name="grama_niladari_certificate" accept=".pdf, .png, .jpg, .jpeg" required="required">
+                                        <input type="file" class="custom-file-input" id="grama-niladari-certificate" name="appointment_attachment" accept=".pdf, .png, .jpg, .jpeg" required="required">
                                         <label class="custom-file-label" for="grama-niladari-certificate">Choose file</label>
                                     </div>
                                     <small class="form-text text-muted">Drag and drop yourAttachment in PDF or image format here, or click to select a file.</small>
+                                    <div class="text-danger">
+                                        <span  style="text-align: center">@error('appointment_attachment') {{ $message }} @enderror</span>
+                                    </div> 
+                                
                                 </div>
                             </div>
                         
                             <div class="form-group row">
                                 <div class="col-md-3 col-sm-3"></div> 
                                 <div class="col-md-6 col-sm-6">
-                                    <button type="reset" class="btn btn-primary">Next</button>
+                                    <button type="submit" class="btn btn-primary">Next</button>
                                 </div>
                             </div>
                         </form>

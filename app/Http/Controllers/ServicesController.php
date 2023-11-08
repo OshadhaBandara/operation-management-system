@@ -562,4 +562,100 @@ class ServicesController extends Controller
             return back()->with('fail', 'An error occurred while saving the document / service request: ' . $e->getMessage());
         }
     }
+
+
+
+
+    function appointmentStore()
+    {
+       // dd(request()->all());
+
+
+        request()->validate([
+            "First_Name" => 'required|string|max:255',
+            "Last_Name" => 'required|string|max:255',
+            "NIC" => 'required|string|max:12|exists:citizens,nic', 
+            "Email" => 'required|string|email|max:255', 
+            "Phone" => 'required|string|max:20',
+            "District" => 'required|string|max:255',
+            "Division" => 'required|string|max:255',
+            "Address" => 'required|string',
+            "appointment_type" => 'required|string',
+            "appointment_description" => 'required|string',
+            "appointment_date" => 'required',
+            "appointment_time" => 'required',
+        ]);
+        
+        //dd(request()->all());
+
+
+
+        
+        try {
+
+
+            $cnic = request()->session()->get('cnic');
+            $cnicDirectory = storage_path('app/public/' . $cnic);
+        
+            if (!file_exists($cnicDirectory)) {
+                // Create a directory for the user if it doesn't exist
+                mkdir($cnicDirectory, 0755, true);
+            }
+        
+            $appointmentAttachmentName = $cnic . '_appointment_attachment.' . request('appointment_attachment')->getClientOriginalExtension();
+        
+            
+
+            DB::beginTransaction(); // Start a database transaction
+
+
+            $service = Service::create([
+                'citizen_id' => request('cid'), 
+                'service_type' => request('service_type'), 
+                'appointment_type' => request('appointment_type'), 
+                'appointment_description' => request('appointment_description'),
+                'appointment_date' => request('appointment_date'),
+                'appointment_time' => request('appointment_time'),
+            ]);
+    
+
+    
+            $document =Document::where('citizen_id', Request()->session()->get('cid'))->first();
+
+        
+            if ($document) {
+
+                $document->appointment_attachment = $appointmentAttachmentName;
+                $document->update();
+
+            } else {
+
+                Document::create([
+                    'citizen_id' => request('cid'),
+                    'appointment_attachment' => $appointmentAttachmentName,
+                ]);
+
+            }
+            
+            // Move and store the images with the new file names in the user's directory
+            request('appointment_attachment')->move($cnicDirectory, $appointmentAttachmentName);
+
+
+
+            DB::commit(); // Commit the transaction
+           // return back()->with('success', 'Document saved successfully');
+
+
+           return redirect('profile')->with('success', 'Appointment request is successfully created.');
+
+           
+        } catch (\Exception $e) {
+            DB::rollBack(); // Rollback the transaction in case of an exception
+        
+            throw $e;
+           // return back()->with('fail', 'An error occurred while saving the document / service request: ' . $e->getMessage());
+        }
+
+
+    }
 }

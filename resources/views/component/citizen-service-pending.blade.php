@@ -41,7 +41,16 @@
             @endif
 
             @php
-                $paymentStatus = $service->service_payment ? "Paid" : "Pending";
+
+                if($service->service_type == 'appointment')
+                {
+                    $paymentStatus = "N/A";
+
+                }
+                else {
+                    $paymentStatus = $service->service_payment ? "Paid" : "Pending";
+                }
+               
                // $totalPayment = isset($service->payments) ? $service->payments->total : 'N/A';
             @endphp
 
@@ -52,8 +61,8 @@
                         <td>{{$service->id}}</td>
                         <td>{{$serviceType}}</td>
                         <td>{{ \Carbon\Carbon::parse($service->created_at)->format('F j, Y') }}</td>
-                        <td>{{$service->delivary_method}}</td>
-                        <td>{{$service->total}}</td>
+                        <td>{{$service->service_type == 'appointment'? "N/A": $service->delivary_method}}</td>
+                        <td>{{$service->service_type == 'appointment'? "N/A":  $service->total}}</td>
                         <td>{!! $paymentStatus == "Pending" ? "<a href='payment_pending/$service->id'>Pending</a>" : $paymentStatus !!}</td>
                     </tr>
                 </tbody>

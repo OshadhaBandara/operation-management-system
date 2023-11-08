@@ -174,6 +174,9 @@ Route::get('logout_citizen',[CitizenController::class,'flush']);
 
 
 Route::view('appointment', 'Forms/appointment')->middleware('AuthCitizen');
+Route::post('appointment_store',[ServicesController::class,'appointmentStore'])->middleware('AuthCitizen');
+
+
 Route::view('certificates', 'Forms/certificates')->middleware('AuthCitizen');
 Route::post('certificates-store', [ServicesController::class,'store'])->middleware('AuthCitizen');
 Route::view('payment', 'payment')->middleware('AuthCitizen');

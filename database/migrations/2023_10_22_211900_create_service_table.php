@@ -27,7 +27,7 @@ class CreateServiceTable extends Migration
             $table->string('appointment_description')->nullable();
             $table->string('old_passport_id_Number')->nullable();
             $table->string('old_nic_id_Number')->nullable();
-            $table->string('delivary_method')->nullable(false);
+            $table->string('delivary_method')->nullable();
             $table->decimal('item_price', 10, 2)->nullable();
             $table->decimal('delivery_price', 10, 2)->nullable();
             $table->decimal('total', 10, 2)->nullable();
