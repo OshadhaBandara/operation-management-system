@@ -152,50 +152,12 @@ class ServicesController extends Controller
        
         $service = Service::where('id', $id)->first();
 
-        // dd($service->certificate_type);
-
-
-         
-
-        if($service->certificate_type == 'Birth Certificates') 
-        {
-            $productItemPrice = 1500.00;
-        }
-
-        if($service->certificate_type == 'Marriag Certificates') 
-        {
-            $productItemPrice = 5000.00;
-        }
-
-        if($service->certificate_type == 'Grama Niladari Certificates') 
-        {
-            $productItemPrice = 500.00;
-        }
-
-
-
-
-
-
-
-        if($service->delivary_method == 'deliver')
-        {
-            $Dilivery_price = 1000.00;
-        }
-        else
-        {
-            $Dilivery_price = 500.00;
-        }
-
-        $totalPrice = $productItemPrice + $Dilivery_price;
-
-
         session()->put('delivary_method',  $service->delivary_method);
         session()->put('product_item',  $service->certificate_type);
-        session()->put('productItemPrice',  $productItemPrice );
+        session()->put('productItemPrice',  $service->item_price );
         session()->put('service_id',  $service->id);
-        session()->put('delivery_price', $Dilivery_price);
-        session()->put('totalPrice', $totalPrice);
+        session()->put('delivery_price',$service->delivery_price);
+        session()->put('totalPrice', $service->total);
         session()->put('service_type', $service->service_type);
 
 
@@ -281,16 +243,12 @@ class ServicesController extends Controller
                 'service_type' => request('service_type'), 
                 'nic_service_type' => request('nic_type'), 
                 'delivary_method' => request('delivary_method'),
+                'item_price' => $productItemPrice,
+                'delivery_price' => $Dilivery_price,
                 'total' =>$totalPrice,
             ]);
     
             
-    /* 
-            $gramaNiladariCertificateName = request('grama_niladari_certificate')->getClientOriginalName();
-            $birthCertificateName = request('birth_certificate')->getClientOriginalName();
-    
-            //dd( $birthCertificateName); */
-    
             $document =Document::where('citizen_id', Request()->session()->get('cid'))->first();
 
         
@@ -309,8 +267,6 @@ class ServicesController extends Controller
                 ]);
 
             }
-        
-
             
             // Move and store the images with the new file names in the user's directory
             request('grama_niladari_certificate')->move($cnicDirectory, $gramaNiladariCertificateName);
@@ -335,30 +291,144 @@ class ServicesController extends Controller
         } catch (\Exception $e) {
             DB::rollBack(); // Rollback the transaction in case of an exception
         
-            throw $e;
-           // return back()->with('fail', 'An error occurred while saving the document: ' . $e->getMessage());
+            //throw $e;
+            return back()->with('fail', 'An error occurred while saving the document / service request: ' . $e->getMessage());
         }
      
-/* 
+    }
+
+    function passportStore()
+    {
+       // dd(request()->all());
+
+
+
+       
+        request()->validate([
+            "First_Name" => 'required|string|max:255',
+            "Last_Name" => 'required|string|max:255',
+            "NIC" => 'required|string|max:12|exists:citizens,nic', 
+            "Email" => 'required|string|email|max:255', 
+            "Phone" => 'required|string|max:20',
+            "District" => 'required|string|max:255',
+            "Division" => 'required|string|max:255',
+            "Address" => 'required|string',
+            "passport_type" => 'required|string',
+            "grama_niladari_certificate" => 'required|image|mimes:jpeg,png,jpg,gif',
+            "birth_certificate" => 'required|image|mimes:jpeg,png,jpg,gif',
+            "nic_copy" => 'required|image|mimes:jpeg,png,jpg,gif',
+            "delivary_method" => 'required',
+        ]);
         
 
 
+      //  dd(request()->all());
 
 
 
 
+        try {
+
+            if(request()->passport_type == 'New Passport') 
+            {
+                $productItemPrice =15000.00;
+            }
+    
+            if(request()->passport_type == 'Passport Renewal') 
+            {
+                $productItemPrice = 10000.00;
+            }
+ 
+    
+            if(Request('delivary-method') == 'deliver')
+            {
+                $Dilivery_price = 1000.00;
+            }
+            else
+            {
+                $Dilivery_price = 500.00;
+            }
+
+            $totalPrice = $productItemPrice + $Dilivery_price;
 
 
-       
+            $cnic = request()->session()->get('cnic');
+            $cnicDirectory = storage_path('app/public/' . $cnic);
+        
+            if (!file_exists($cnicDirectory)) {
+                // Create a directory for the user if it doesn't exist
+                mkdir($cnicDirectory, 0755, true);
+            }
+        
+            $gramaNiladariCertificateName = $cnic . '_grama_niladari_certificate.' . request('grama_niladari_certificate')->getClientOriginalExtension();
+            $birthCertificateName = $cnic . '_birth_certificate.' . request('birth_certificate')->getClientOriginalExtension();
+            $nicficateName = $cnic . '_nic_copy.' . request('nic_copy')->getClientOriginalExtension();
+        
+            
+
+            DB::beginTransaction(); // Start a database transaction
+
+
+            $service = Service::create([
+                'citizen_id' => request('cid'), 
+                'service_type' => request('service_type'), 
+                'passport_type' => request('passport_type'), 
+                'delivary_method' => request('delivary_method'),
+                'item_price' => $productItemPrice,
+                'delivery_price' => $Dilivery_price,
+                'total' =>$totalPrice,
+            ]);
+    
+
+    
+            $document =Document::where('citizen_id', Request()->session()->get('cid'))->first();
+
+        
+            if ($document) {
+
+                $document->grama_niladari_certificate = $gramaNiladariCertificateName;
+                $document->birth_certificate = $birthCertificateName;
+                $document->nic = $nicficateName;
+                $document->update();
+
+            } else {
+
+                Document::create([
+                    'citizen_id' => request('cid'),
+                    'grama_niladari_certificate' => $gramaNiladariCertificateName,
+                    'birth_certificate' => $birthCertificateName,
+                    'nic' => $nicficateName,
+                ]);
+
+            }
+            
+            // Move and store the images with the new file names in the user's directory
+            request('grama_niladari_certificate')->move($cnicDirectory, $gramaNiladariCertificateName);
+            request('birth_certificate')->move($cnicDirectory, $birthCertificateName);
+            request('nic_copy')->move($cnicDirectory, $nicficateName);
 
 
 
+            DB::commit(); // Commit the transaction
+           // return back()->with('success', 'Document saved successfully');
 
 
-       
-        //return redirect('payment')->with('data', $data)->with('success', 'Request is successfully created, Please make payment');
- */
+           session()->put('delivary_method',  Request('delivary-method'));
+           session()->put('product_item',  Request('service_type'));
+           session()->put('productItemPrice',  $productItemPrice );
+           session()->put('service_id',  $service->id);
+           session()->put('delivery_price', $Dilivery_price);
+           session()->put('totalPrice', $totalPrice);
 
+           return redirect('payment')->with('success', 'Request is successfully created, Please make payment');
+
+           
+        } catch (\Exception $e) {
+            DB::rollBack(); // Rollback the transaction in case of an exception
+        
+            throw $e;
+          //  return back()->with('fail', 'An error occurred while saving the document / service request: ' . $e->getMessage());
+        }
 
 
     }

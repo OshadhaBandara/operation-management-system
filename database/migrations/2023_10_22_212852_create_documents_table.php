@@ -17,6 +17,7 @@ class CreateDocumentsTable extends Migration
             $table->id();
             $table->bigInteger('citizen_id')->nullable(false);
             $table->string('grama_niladari_certificate')->nullable();
+            $table->string('nic')->nullable();
             $table->string('v_emission_certificate')->nullable();
             $table->string('birth_certificate')->nullable();
             $table->string('vehicle_license')->nullable();

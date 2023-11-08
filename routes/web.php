@@ -186,6 +186,9 @@ Route::view('nic', 'Forms/nic')->middleware('AuthCitizen');
 Route::post('nic-store',[ServicesController::class,'nicStore'])->middleware('AuthCitizen');
 
 Route::view('passport', 'Forms/passport')->middleware('AuthCitizen');
+Route::post('passport_store',[ServicesController::class,'passportStore'])->middleware('AuthCitizen');
+
+
 Route::view('vehicle-revenue', 'Forms/vehicle-revenue')->middleware('AuthCitizen');
 
 
