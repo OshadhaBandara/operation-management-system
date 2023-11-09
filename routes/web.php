@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\CitizenController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Middleware\AuthCitizen;
+use App\Http\Controllers\DownloadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -166,6 +167,10 @@ Route::get('appointment-reports',function(){
 
 
 /*==========================*/
+
+Route::get('pdf1', [DownloadController::class, 'downloadPdf1']);
+Route::get('pdf2', [DownloadController::class, 'downloadPdf2']);
+Route::get('pdf3', [DownloadController::class, 'downloadPdf3']);
 
 Route::view('citizen-login','Auth/citizen-login'); 
 Route::post('login_Citizen',[CitizenController::class,'index']);

@@ -17,7 +17,7 @@
                     data-aos="fade-up"
                     data-aos-delay="200"
                 >
-                    <ol class="breadcrumb text-center justify-content-center">
+                    <ol class="breadcrumb text-center justify-content-center" style="background-color: transparent">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                     <li
                         class="breadcrumb-item active text-white-50"
@@ -29,9 +29,34 @@
                 </nav>
                 </div>
             </div>
+
+
+        
         </div>
     </div>
 
-
+    <div class="container mt-5 mb-5">
+        <div class="row" >
+            <div class="col-md-4 mb-2" style="display: grid">
+                <a href="pdf1" class="btn btn-primary">Application for obtaining disaster relief (Sinhala)</a>
+            </div>
+            <div class="col-md-4 mb-2" style="display: grid">
+                <a href="pdf2" class="btn btn-primary">Officers of Management Service Officer Service (Administrative Division)</a>
+            </div>
+            <div class="col-md-4 mb-2" style="display: grid">
+                <a href="pdf3" class="btn btn-primary">Officers of Management Service Officer Service (Administrative Division) VIII</a>
+            </div>
+            <div class="col-md-4 mb-2" style="display: grid">
+                <a href="{{ url('#') }}" class="btn btn-primary">Download PDF 1</a>
+            </div>
+            <div class="col-md-4 mb-2" style="display: grid">
+                <a href="{{ url('#') }}" class="btn btn-primary">Download PDF 2</a>
+            </div>
+            <div class="col-md-4 mb-2" style="display: grid">
+                <a href="{{ url('#') }}" class="btn btn-primary">Download PDF 3</a>
+            </div>
+         
+        </div>
+    </div>
 
 @endsection

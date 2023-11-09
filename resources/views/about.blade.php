@@ -18,7 +18,7 @@ style="background-image: url('{{ asset('assets/images/hero_bg_3.jpg') }}')"
         data-aos="fade-up"
         data-aos-delay="200"
       >
-        <ol class="breadcrumb text-center justify-content-center">
+        <ol class="breadcrumb text-center justify-content-center" style="background-color: transparent">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
           <li
             class="breadcrumb-item active text-white-50"
