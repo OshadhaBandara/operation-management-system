@@ -11,6 +11,9 @@ use PhpParser\Node\Stmt\Echo_;
 use Illuminate\Support\Arr;
 use Exception;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Document;
+use Illuminate\Support\Facades\DB;
+use Intervention\Image\Facades\Image;
 
 
 
@@ -290,48 +293,66 @@ class CitizenController extends Controller
     function imageStore()
     {
 
+        request()->validate([
+            'profile_image' => 'required|image',
+        ]);
+
+
+         // dd(request()->all());
+         
         try
         {
             
-            request()->validate([
-                'image' => 'required|image',
-            ]);
-    
-            $citizenId = session('cnic');
-            $imageFileName = 'citizen_profile_image';
-    
-            // Get the uploaded file's extension
-            $imageExtension = request()->file('image')->getClientOriginalExtension();
-    
-            // Check if a file with $citizenId exists in storage
-            if (Storage::disk('public')->exists($citizenId)) {
 
-                // Check if an image with the name 'citizen_profile_image' exists in that directory
-                if (Storage::disk('public')->exists($citizenId . '/' . $imageFileName . '.' . $imageExtension)) {
-                    // Delete the old image
-                    Storage::disk('public')->delete($citizenId . '/' . $imageFileName . '.' . $imageExtension);
-                }
-    
-                // Store the new image in the citizen's directory and resize it
-                $newFilePath = request()->file('image')->storeAs('public/' . $citizenId, $imageFileName . '.' . $imageExtension);
-    
-               
-                session()->put('cprofile_image', $newFilePath);
-                
-            } else {
-                // If the directory doesn't exist, create it and store the image
-                Storage::disk('public')->makeDirectory($citizenId);
-                $newFilePath = request()->file('image')->storeAs('public/' . $citizenId, $imageFileName . '.' . $imageExtension);
-                session()->put('cprofile_image', $newFilePath);
+            $cnic = request()->session()->get('cnic');
+            $cnicDirectory = storage_path('app/public/' . $cnic);
+
+            if (!file_exists($cnicDirectory)) {
+                // Create a directory for the user if it doesn't exist
+                mkdir($cnicDirectory, 0755, true);
             }
-           // @dd(session('cprofile_image'));
-            return redirect()->back()->with('success', 'Image uploaded and resized successfully.');
+        
+            $profilePicName = $cnic . '_profile_image.' . request('profile_image')->getClientOriginalExtension();
+
+            DB::beginTransaction(); // Start a database transaction
+
+            $document =Document::where('citizen_id', Request()->session()->get('cid'))->first();
+
+        
+            if ($document) {
+
+                $document->profile_image = $profilePicName;
+                $document->update();
+
+            } else {
+
+                Document::create([
+                    'citizen_id' => request()->session()->get('cid'),
+                    'profile_image' => $profilePicName,
+                ]);
+
+            }
+
+
+            DB::commit(); // Commit the transaction
+
+                // Resize the image before saving
+                $image = Image::make(request('profile_image'))->fit(200, 200);
+                $image->save($cnicDirectory . '/' . $profilePicName);
+            
+            // Move and store the images with the new file names in the user's directory
+           // request('profile_image')->move($cnicDirectory, $profilePicName);
+
+
+            return redirect('profile')->with('success', 'Image uploaded successfully.');
             
 
         }
         catch(Exception $ex)
         {
-            $ex->getMessage();
+            //throw $ex;
+            DB::rollBack(); // Rollback the transaction in case of an exception
+             return redirect('profile')->with('fail', 'An error occurred while saving the profile image : ' . $ex->getMessage());
         }
 
        

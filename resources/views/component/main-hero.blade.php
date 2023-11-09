@@ -21,7 +21,7 @@
             <h1 class="heading" data-aos="fade-up">
               Easiest way to get your services Form Devotional Secretariat with efficiency
             </h1>
-            <form
+           {{--  <form
               action="#"
               class="narrow-w form-search d-flex align-items-stretch mb-3"
               data-aos="fade-up"
@@ -33,7 +33,7 @@
                 placeholder="Enter The service You Need. "
               />
               <button type="submit" class="btn btn-primary">Search</button>
-            </form>
+            </form> --}}
           </div>
         </div>
     </div>

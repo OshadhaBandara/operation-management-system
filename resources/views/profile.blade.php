@@ -30,31 +30,37 @@
                 <div class="clearfix"></div>
                 <div class="x_content" >
                   <div class="col-md-3 col-sm-3  profile_left">
-                    <div class="profile_img">
-                      <div id="crop-avatar">
-                        <!-- Current avatar -->
-             
-                        <img class="img-responsive avatar-view" src="{{ session('cprofile_image') ? asset( session('cprofile_image')) : asset('assets/images/img.jpg') }}" alt="Profile Image">
-                        
-                      </div>
-                    </div>
-                    <br />
+                      <div class="profile_img">
+                        <div id="crop-avatar">
+                          <!-- Current avatar -->
+              
+                          {{-- @dd(asset('storage/'.session('cnic').'/'.$documents->profile_image)) --}}
 
-                    <form id="imageForm" action="profile-image-store" method="POST" enctype="multipart/form-data">
-                      <label for="imageUpload" class="btn btn-success" style="color: aliceblue">
-                          <i class="fa fa-edit m-right-xs" style="margin-right: 10px"></i>Change Image
-                      </label>
-                      <input type="file" id="imageUpload" name="image" style="display: none">
-                      @csrf <!-- Include the CSRF token -->
-                  </form>
+                          <img class="img-responsive avatar-view" src="{{ !$documents->profile_image == null ? asset('storage/'.session('cnic').'/'.$documents->profile_image) : asset('storage/citizen/profile_image.png') }}"
+                          alt="Profile Image">
+                          
+                        </div>
+                      </div>
+                     <br />
+
+                      <form id="imageForm" action="profile-image-store" method="POST" enctype="multipart/form-data">
+                        <label for="imageUpload" class="btn btn-success" style="color: aliceblue">
+                            <i class="fa fa-edit m-right-xs" style="margin-right: 10px"></i>Change Image
+                        </label>
+                        <input type="file" id="imageUpload" name="profile_image" style="display: none">
+                        <div class="text-danger" style="text-align: left">
+                          <span>@error('profile_image') {{ $message }} @enderror</span>
+                        </div>
+                        @csrf <!-- Include the CSRF token -->
+                    </form>
                   
-                  <script>
-                      // Add an event listener for the file input
-                      document.getElementById("imageUpload").addEventListener("change", function() {
-                          document.getElementById("imageForm").submit(); // Submit the form when an image is selected
-                      });
-                  </script>
-                  
+                    <script>
+                        // Add an event listener for the file input
+                        document.getElementById("imageUpload").addEventListener("change", function() {
+                            document.getElementById("imageForm").submit(); // Submit the form when an image is selected
+                        });
+                    </script>
+                    
                   
                   
                     <br />

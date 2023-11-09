@@ -22,6 +22,7 @@ class CreateDocumentsTable extends Migration
             $table->string('birth_certificate')->nullable();
             $table->string('vehicle_license')->nullable();
             $table->string('appointment_attachment')->nullable();
+            $table->string('profile_image')->nullable();
             $table->timestamps();
         });
     }

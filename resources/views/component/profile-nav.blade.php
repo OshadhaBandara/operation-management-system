@@ -12,7 +12,8 @@
             
             <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false" style="margin-left: 10px">
               
-              <img src="{{ session('cprofile_image') ? asset( session('cprofile_image')) : asset('assets/images/img.jpg') }}" alt="Profile Image">
+              <img src="{{ !$documents->profile_image == null ? asset('storage/'.session('cnic').'/'.$documents->profile_image) : asset('storage/citizen/profile_image.png') }}" 
+              alt="Profile Image">
 
               
               {{ !empty(session('cfname')) ? session('cfname') . '     ' .  session('clname') : 'welcome' }}
