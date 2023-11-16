@@ -93,11 +93,11 @@ class CitizenController extends Controller
                         $req->session()->put('cdistrict', $citizen->district);
                         $req->session()->put('cdivision', $citizen->division);
                         $req->session()->put('cdistrict', $citizen->district);
-                        $req->session()->put('grama_niladari_certificate',$citizen->documents->grama_niladari_certificate);
-                        $req->session()->put('v_emission_certificate', $citizen->documents->v_emission_certificate);
-                        $req->session()->put('birth_certificate',$citizen->documents->birth_certificate);
-                        $req->session()->put('vehicle_license', $citizen->documents->vehicle_license);
-                        $req->session()->put('appointment_attachment', $citizen->documents->appointment_attachment);
+                        // $req->session()->put('grama_niladari_certificate',$citizen->documents->grama_niladari_certificate);
+                        // $req->session()->put('v_emission_certificate', $citizen->documents->v_emission_certificate);
+                        // $req->session()->put('birth_certificate',$citizen->documents->birth_certificate);
+                        // $req->session()->put('vehicle_license', $citizen->documents->vehicle_license);
+                        // $req->session()->put('appointment_attachment', $citizen->documents->appointment_attachment);
                        // $req->session()->put('service_type', $citizen->services->service_type);
 
                         //dd($citizen);
@@ -114,7 +114,7 @@ class CitizenController extends Controller
                         $services = $citizen->services;
                 
                         // access payments for each service
-
+                        $payments = [];
                         foreach ($services as $service) {
                             $payments = $service->payments; 
                         // dd($payments);
@@ -172,13 +172,13 @@ class CitizenController extends Controller
 
 
         if (!$citizen) {
-            return back()->with('fail', 'Your NIC is not registered on District Secretariat. Please contact your Grama Niladari.');
+            return redirect('citizen-login#signup')->withInput()->with('fail', 'Your NIC is not registered on District Secretariat. Please contact your Grama Niladari.');
         } elseif ($citizen->is_registered) {
-            return back()->with('fail', 'You have already registered. Please log in.');
+            return redirect('citizen-login#signup')->withInput()->with('fail', 'You have already registered. Please log in.');
         } elseif ($citizen->district != $req->district) {
-            return back()->with('fail', 'Your district does not match. Please try again.');
+            return redirect('citizen-login#signup')->withInput()->with('fail', 'Your district does not match. Please try again.');
         } elseif ($citizen->division != $req->division) {
-            return back()->with('fail', 'Your division does not match. Please try again.');
+            return redirect('citizen-login#signup')->withInput()->with('fail', 'Your division does not match. Please try again.');
         }
 
 

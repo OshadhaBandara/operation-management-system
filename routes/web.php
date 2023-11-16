@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\AdminAppoimentsController;
+use App\Http\Controllers\AdminCitizenController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\CitizenController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Middleware\AuthCitizen;
 use App\Http\Controllers\DownloadController;
+use GuzzleHttp\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -103,47 +106,35 @@ Route::get('edit-user',function(){
     return view('Admin/edit-user');
 });
 
-Route::get('add-citizen-id',function(){
-
-    return view('Admin/add-citizen-id');
-});
+Route::get('add-citizen-id',[AdminCitizenController::class,'addCitizenId'])->middleware('AdminAuth');
 
 
 
 
 
-Route::get('view-citizen',function(){
-
-    return view('Admin/view-citizen');
-});
-
-
-
-Route::get('edit-citizen',function(){
-
-    return view('Admin/edit-citizen');
-});
+Route::get('view-citizen/{citizen}',[AdminCitizenController::class,'viewCitizen'])->name('view-citizen')->middleware('AdminAuth');
+Route::get('edit-citizen/{citizen}',[AdminCitizenController::class,'editCitizen'])->name('edit-citizen')->middleware('AdminAuth');
+Route::post('update-citizen/{citizen}',[AdminCitizenController::class,'updateCitizen'])->name('update-citizen')->middleware('AdminAuth');
+Route::post('delete-citizen/{citizen}',[AdminCitizenController::class,'deleteCitizen'])->name('delete-citizen')->middleware('AdminAuth');
 
 
-Route::get('citizen-file-manage',function(){
-
-    return view('Admin/citizen-file-manage');
-});
+Route::get('citizen-file-manage/{citizen}',[AdminCitizenController::class,'citizenFiles'])->name('citizen-file-manage')->middleware('AdminAuth');
+Route::post('delete-media/{loc}/{filename}/{citizen}',[AdminCitizenController::class,'deleteMedia'])->name('delete-media')->middleware('AdminAuth');
 
 
 
 
 
-Route::get('citizen-appointment-view',function(){
+Route::get('citizen-appointment-view/{service}',[AdminAppoimentsController::class,'viewAppoinment'])->name('appoinments.view')->middleware('AdminAuth');
+Route::post('complete/{service}', [AdminAppoimentsController::class,'completeService'])->name('appoinments.complete')->middleware('AdminAuth');
+Route::post('reject/{service}', [AdminAppoimentsController::class,'rejectService'])->name('appoinments.reject')->middleware('AdminAuth');
+Route::post('reschedule/{service}', [AdminAppoimentsController::class,'rescheduleService'])->name('appoinments.reschedule')->middleware('AdminAuth');
+Route::post('cancelation/{service}', [AdminAppoimentsController::class,'cancelService'])->name('appoinments.cancelation')->middleware('AdminAuth');
 
-    return view('Admin/citizen-appointment-view');
-});
 
 
-Route::get('appointment-user',function(){
 
-    return view('Admin/appointment');
-});
+Route::get('view-citizen-appoinments/{citizen}',[AdminCitizenController::class,'citizenAppoinments'])->name('view-citizen-appoinments')->middleware('AdminAuth');
 
 
 
@@ -223,11 +214,14 @@ Route::view('admin-dashboard','Admin/dashboard')->middleware('AdminAuth');
 Route::post('admin-auth',[Controller::class,'login']);
 Route::get('logout_admin',[Controller::class,'flush']);
 
-Route::view('citizen-manager','Admin/citizen-manager');
+Route::get('citizen-manager',[AdminCitizenController::class,'citizenIndex'])->middleware('AdminAuth');
 
-Route::view('citizen-appointment','Admin/citizen-appointment');
+Route::get('citizen-appointment',[AdminAppoimentsController::class,'appoinmentsIndex'])->middleware('AdminAuth');
 
 Route::view('user-manager','Admin/user-manager');
+
+Route::post('create-new-citizen',[AdminCitizenController::class,'createNew'])->name('create-new-citizen')->middleware('AdminAuth');
+
 
 
 

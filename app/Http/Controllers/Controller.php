@@ -41,6 +41,7 @@ class Controller extends BaseController
                 request()->session();
                 
                 session()->put('is_admin_login',true);
+                session()->put('uid',$user->id );
                 session()->put('afname',$user->fname );
                 session()->put('alname',$user->lname );
                 session()->put('is_view_user',$user->is_view_user );
